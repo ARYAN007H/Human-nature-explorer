@@ -1,0 +1,212 @@
+/* Global styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&family=Fira+Code:wght@400&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Accessibility: Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background-color: #F5F2ED;
+  color: #1A1410;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+  line-height: 1.2;
+}
+
+code {
+  font-family: 'Fira Code', 'Courier New', monospace;
+  background-color: rgba(45, 62, 80, 0.05);
+  padding: 0.25em 0.5em;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+/* Focus styles for accessibility */
+:focus-visible {
+  outline: 2px solid #F4A261;
+  outline-offset: 2px;
+}
+
+button:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Smooth animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+/* Skip link visibility */
+.skip-link {
+  background: #1A1410;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  transform: translateY(-6px);
+}
+
+/* Utility micro-animations (reduced-motion-aware) */
+.micro-fade {
+  transition: opacity 260ms ease, transform 260ms ease;
+}
+.micro-slide-up {
+  transform: translateY(6px);
+  opacity: 0;
+}
+.micro-slide-up.in-view {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Canvas container */
+.canvas-3d {
+  background: linear-gradient(135deg, #F5F2ED 0%, #F0CACD 100%);
+}
+
+/* Scroll fade effect */
+.scroll-fade {
+  position: relative;
+}
+
+.scroll-fade::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2rem;
+  background: linear-gradient(to top, rgba(245, 242, 237, 0.8), transparent);
+  pointer-events: none;
+}
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90 active:scale-95;
+    background-color: #2D3E50;
+    color: white;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90 active:scale-95;
+    background-color: #E8B4B8;
+    color: #1A1410;
+  }
+
+  .btn-accent {
+    @apply px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90 active:scale-95;
+    background-color: #F4A261;
+    color: white;
+  }
+
+  .card {
+    @apply p-6 rounded-lg shadow-md transition-all hover:shadow-lg;
+    background-color: white;
+  }
+
+  .section-header {
+    @apply text-4xl font-serif font-bold text-center mb-16;
+    color: #2D3E50;
+  }
+
+  .prose-custom {
+    @apply max-w-3xl mx-auto text-base leading-relaxed;
+    color: #1A1410;
+  }
+
+  /* Enhanced prose styles */
+  .prose-custom p {
+    font-size: 1.0625rem; /* 17px */
+    line-height: 1.75;
+    margin-bottom: 1rem;
+    color: #1A1410;
+  }
+
+  .prose-custom h2, .prose-custom h3 {
+    color: #2D3E50;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .prose-custom .pull-quote {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    border-left: 4px solid rgba(0,0,0,0.06);
+    background: rgba(45,62,80,0.03);
+  }
+
+  .prose-custom .callout {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: rgba(244,162,97,0.07);
+    border-left: 4px solid #F4A261;
+    color: #1A1410;
+    margin: 1rem 0;
+  }
+}
