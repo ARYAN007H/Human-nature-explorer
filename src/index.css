@@ -129,6 +129,28 @@ html {
   --radius-2xl: 2rem;     /* 32px */
   --radius-full: 9999px;
   
+  /* ---- LIQUID GLASS (VisionOS Aesthetic) ---- */
+  /* Glass materials - transparent, glossy, refractive */
+  --liquid-glass-white: rgba(255, 255, 255, 0.12);
+  --liquid-glass-white-strong: rgba(255, 255, 255, 0.18);
+  --liquid-glass-dark: rgba(15, 15, 15, 0.08);
+  --liquid-glass-inset: inset 0 0 20px rgba(255, 255, 255, 0.15);
+  
+  /* Neon accent glows */
+  --neon-blue: #4DA9FF;
+  --neon-cyan: #5AF0D9;
+  --neon-purple: #A78BFA;
+  --neon-pink: #FF357F;
+  
+  /* Glass glow effects */
+  --glass-glow-blue: rgba(77, 169, 255, 0.2);
+  --glass-glow-cyan: rgba(90, 240, 216, 0.15);
+  --glass-glow-purple: rgba(167, 139, 250, 0.12);
+  
+  /* Floating animation */
+  --float-drift: 2px;
+
+  
   /* ---- Z-INDEX SCALE ---- */
   --z-base: 0;
   --z-dropdown: 1000;
@@ -364,6 +386,51 @@ button:disabled {
   box-shadow: var(--shadow-2);
 }
 
+/* ---- LIQUID GLASS BUTTON (VisionOS Style) ---- */
+.btn-glass {
+  background: var(--liquid-glass-white);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-text);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-xl);
+  transition: all var(--duration-base) cubic-bezier(0.22, 0.61, 0.36, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.btn-glass:hover:not(:disabled) {
+  background: var(--liquid-glass-white-strong);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(calc(-1 * var(--float-drift)));
+}
+
+.btn-glass:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Glass button with blue neon glow */
+.btn-glass-blue {
+  box-shadow: 0 4px 20px var(--glass-glow-blue), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  border-color: rgba(77, 169, 255, 0.3);
+}
+
+.btn-glass-blue:hover:not(:disabled) {
+  box-shadow: 0 8px 30px var(--glass-glow-blue), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  border-color: rgba(77, 169, 255, 0.5);
+}
+
 /* ============================================================================
    COMPONENTS - CARDS
    ============================================================================ */
@@ -385,6 +452,44 @@ button:disabled {
 .card-elevated {
   box-shadow: var(--shadow-3);
 }
+
+/* ---- LIQUID GLASS CARD (VisionOS Style) ---- */
+.card-glass {
+  background: var(--liquid-glass-white);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: var(--space-6);
+  transition: all var(--duration-base) var(--easing);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.card-glass:hover {
+  background: var(--liquid-glass-white-strong);
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: translateY(calc(-1 * var(--float-drift)));
+}
+
+.card-glass.card-glass-blue {
+  box-shadow: 0 8px 32px var(--glass-glow-blue), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.card-glass.card-glass-blue:hover {
+  box-shadow: 0 12px 40px var(--glass-glow-blue), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
 
 /* ============================================================================
    COMPONENTS - MODAL
