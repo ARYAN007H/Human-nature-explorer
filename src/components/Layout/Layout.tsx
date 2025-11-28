@@ -25,15 +25,16 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const isHome = location.pathname === "/";
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: colors.neutral.light }}>
+    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--color-bg-primary)" }}>
       {/* Skip to content for keyboard users */}
       <a href="#main-content" className="skip-link sr-only focus:not-sr-only" style={{position: 'absolute', left: 8, top: 8, zIndex: 60}}>Skip to content</a>
       {/* Header/Navigation */}
       <nav
         className={`sticky top-0 z-50 px-4 py-3 transition-all backdrop-blur-sm ${scrolled ? "shadow-md" : ""}`}
         style={{
-          backgroundColor: isHome ? (scrolled ? "rgba(255,255,255,0.6)" : "transparent") : colors.primary.main,
-          borderBottom: isHome || !scrolled ? "none" : `1px solid ${colors.border}`,
+          backgroundColor: isHome ? (scrolled ? "rgba(255,255,255,0.6)" : "transparent") : "var(--color-surface-primary)",
+          borderBottom: isHome || !scrolled ? "none" : `1px solid var(--color-border)`,
+          color: isHome ? "var(--color-fg-primary)" : "white",
         }}
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -41,7 +42,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <button
               onClick={() => navigate("/")}
               className="text-2xl font-serif font-bold transition-all hover:opacity-80"
-              style={{ color: isHome ? colors.neutral.light : "white" }}
+              style={{ color: "inherit" }}
               aria-label="Home"
             >
               HNE
@@ -52,7 +53,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               onClick={() => toggleDark()}
               aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
               title={isDark ? "Light mode" : "Dark mode"}
-              className="ml-2 p-2 rounded-md"
+              className="ml-2 p-2 rounded-md transition-colors hover:bg-white/10 active:bg-white/20"
+              style={{
+                color: isHome ? colors.neutral.light : "white",
+              }}
             >
               {isDark ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
@@ -152,8 +156,8 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <footer
         className="mt-auto pt-16 px-4 py-12"
         style={{
-          backgroundColor: colors.primary.main,
-          color: colors.neutral.light,
+          backgroundColor: "var(--color-surface-primary)",
+          color: "white",
         }}
       >
         <div className="max-w-6xl mx-auto">

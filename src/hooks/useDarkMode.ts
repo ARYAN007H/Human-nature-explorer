@@ -71,7 +71,8 @@ export function useDarkMode(): [boolean, (next?: boolean) => void] {
   const [isDark, setIsDark] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem("hne_dark_mode");
-      if (saved) return saved === "1";
+      if (saved !== null) return saved === "1";
+      // Default to system preference if not saved
       return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
     } catch (err) {
       return false;
@@ -81,16 +82,37 @@ export function useDarkMode(): [boolean, (next?: boolean) => void] {
   useEffect(() => {
     try {
       localStorage.setItem("hne_dark_mode", isDark ? "1" : "0");
-    } catch (err) {}
+    } catch (err) {
+      // localStorage unavailable, ignore
+    }
 
+    // Apply theme
+    const root = document.documentElement;
+    
     if (isDark) {
-      document.documentElement.classList.add("dark");
+      // Ensure .dark class is present
+      if (!root.classList.contains("dark")) {
+        root.classList.add("dark");
+      }
       applyDarkPalette();
     } else {
-      document.documentElement.classList.remove("dark");
+      // Ensure .dark class is removed
+      root.classList.remove("dark");
       applyLightPalette();
     }
+    
+    // Dispatch custom event for components to listen to theme changes
+    window.dispatchEvent(new CustomEvent("theme-change", { detail: { isDark } }));
   }, [isDark]);
+
+  // Apply initial theme on mount
+  useEffect(() => {
+    const root = document.documentElement;
+    if (isDark && !root.classList.contains("dark")) {
+      root.classList.add("dark");
+      applyDarkPalette();
+    }
+  }, []);
 
   const toggle = (next?: boolean) => {
     setIsDark((s) => (typeof next === "boolean" ? next : !s));

@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas3D from "../components/3D/Canvas3D";
-import { colors, typography } from "../constants/designTokens";
+import { typography } from "../constants/designTokens";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ const HomePage: React.FC = () => {
       {/* Hero Section with 3D Background */}
       <section
         className="relative w-full min-h-screen flex items-center justify-center overflow-hidden"
-        style={{ backgroundColor: colors.primary.main }}
+        style={{ backgroundColor: "var(--color-surface-primary)" }}
       >
         {/* 3D Canvas Background */}
         <div className="absolute inset-0 opacity-60">
@@ -32,13 +32,13 @@ const HomePage: React.FC = () => {
         {/* Content */}
         <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
           <h1
-            className="text-6xl md:text-7xl font-serif font-bold text-neutral-light mb-6"
+            className="text-6xl md:text-7xl font-serif font-bold text-white mb-6"
             style={{ fontFamily: typography.fontFamily.serif }}
           >
             Human Nature Explorer
           </h1>
 
-          <p className="text-xl md:text-2xl text-neutral-light mb-12 leading-relaxed max-w-xl mx-auto">
+          <p className="text-xl md:text-2xl text-white mb-12 leading-relaxed max-w-xl mx-auto">
             Explore the psychology of human behavior through immersive, interactive experiences.
           </p>
 
@@ -52,7 +52,7 @@ const HomePage: React.FC = () => {
                 border: `1px solid rgba(255, 255, 255, 0.2)`,
               }}
             >
-              <p className="text-sm md:text-base text-neutral-light mb-4 max-w-md mx-auto leading-relaxed">
+              <p className="text-sm md:text-base text-white mb-4 max-w-md mx-auto leading-relaxed">
                 <strong>Welcome.</strong> Choose your path: follow a guided journey or wander freely through
                 psychology's greatest insights. No accounts, no tracking—just curious minds exploring.
               </p>
@@ -71,9 +71,9 @@ const HomePage: React.FC = () => {
               onClick={() => navigate("/explore")}
               className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95"
               style={{
-                backgroundColor: colors.accent.main,
-                color: colors.neutral.dark,
-                boxShadow: `0 10px 25px rgba(244, 162, 97, 0.3)`,
+                backgroundColor: "var(--color-accent)",
+                color: "var(--color-fg-primary)",
+                boxShadow: `0 10px 25px var(--color-glow, rgba(244, 162, 97, 0.3))`,
               }}
               aria-label="Start guided exploration of human psychology chapters"
             >
@@ -86,8 +86,8 @@ const HomePage: React.FC = () => {
               className="px-8 py-4 rounded-lg font-semibold transition-all hover:scale-105 active:scale-95"
               style={{
                 backgroundColor: "transparent",
-                color: colors.neutral.light,
-                border: `2px solid ${colors.secondary.main}`,
+                color: "white",
+                border: `2px solid var(--color-surface-secondary)`,
               }}
               aria-label="Browse chapters freely without guided structure"
             >
@@ -98,7 +98,7 @@ const HomePage: React.FC = () => {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-neutral-light opacity-70 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white opacity-70 animate-bounce">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
@@ -106,9 +106,9 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Value Proposition */}
-      <section className="py-24 px-4 bg-neutral-light">
+      <section className="py-24 px-4 bg-white dark:bg-black" style={{ backgroundColor: "var(--color-bg-primary)" }}>
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-serif font-bold text-center mb-16" style={{ color: colors.primary.main }}>
+          <h2 className="text-4xl font-serif font-bold text-center mb-16" style={{ color: "var(--color-surface-primary)" }}>
             Why Explore Human Nature?
           </h2>
 
@@ -136,15 +136,16 @@ const HomePage: React.FC = () => {
                 key={index}
                 className="text-center p-6"
                 style={{
-                  backgroundColor: `${colors.secondary.main}20`,
+                  backgroundColor: `var(--color-surface-secondary)`,
+                  opacity: 0.15,
                   borderRadius: "1rem",
                 }}
               >
                 <div className="text-5xl mb-4">{item.icon}</div>
-                <h3 className="text-2xl font-serif font-bold mb-3" style={{ color: colors.primary.main }}>
+                <h3 className="text-2xl font-serif font-bold mb-3" style={{ color: "var(--color-surface-primary)" }}>
                   {item.title}
                 </h3>
-                <p style={{ color: colors.neutral.gray }}>{item.description}</p>
+                <p style={{ color: "var(--color-fg-secondary)" }}>{item.description}</p>
               </div>
             ))}
           </div>
