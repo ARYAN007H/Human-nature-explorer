@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { colors } from "../../constants/designTokens";
 import { useDarkMode } from "../../hooks/useDarkMode";
 
 interface LayoutProps {
@@ -32,9 +31,9 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <nav
         className={`sticky top-0 z-50 px-4 py-3 transition-all backdrop-blur-sm ${scrolled ? "shadow-md" : ""}`}
         style={{
-          backgroundColor: isHome ? (scrolled ? "rgba(255,255,255,0.6)" : "transparent") : "var(--color-surface-primary)",
+          backgroundColor: isHome ? (scrolled ? "rgba(255,255,255,0.8)" : "transparent") : "var(--color-surface-primary)",
           borderBottom: isHome || !scrolled ? "none" : `1px solid var(--color-border)`,
-          color: isHome ? "var(--color-fg-primary)" : "white",
+          color: isHome ? "#1A1A1C" : "white",
         }}
       >
         <div className="max-w-6xl mx-auto flex justify-between items-center">
@@ -55,7 +54,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               title={isDark ? "Light mode" : "Dark mode"}
               className="ml-2 p-2 rounded-md transition-colors hover:bg-white/10 active:bg-white/20"
               style={{
-                color: isHome ? colors.neutral.light : "white",
+                color: isHome ? "#1A1A1C" : "white",
               }}
             >
               {isDark ? (
@@ -71,7 +70,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 onFocus={() => void import("../../pages/ExplorePage")}
                 onClick={() => navigate("/explore")}
                 className="px-3 py-2 rounded-md font-medium transition-all hover:opacity-90"
-                style={{ backgroundColor: "transparent", color: isHome ? colors.neutral.light : "white" }}
+                style={{ backgroundColor: "transparent", color: isHome ? "#1A1A1C" : "white" }}
                 aria-label="Guided Exploration"
               >
                 Explore
@@ -81,7 +80,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 onFocus={() => void import("../../pages/WanderPage")}
                 onClick={() => navigate("/wander")}
                 className="px-3 py-2 rounded-md font-medium transition-all hover:opacity-90"
-                style={{ backgroundColor: "transparent", color: isHome ? colors.neutral.light : "white" }}
+                style={{ backgroundColor: "transparent", color: isHome ? "#1A1A1C" : "white" }}
                 aria-label="Wander"
               >
                 Wander
@@ -91,7 +90,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 onFocus={() => void import("../../pages/LibraryPage")}
                 onClick={() => navigate("/library")}
                 className="px-3 py-2 rounded-md font-medium transition-all hover:opacity-90"
-                style={{ backgroundColor: "transparent", color: isHome ? colors.neutral.light : "white" }}
+                style={{ backgroundColor: "transparent", color: isHome ? "#1A1A1C" : "white" }}
                 aria-label="Library"
               >
                 Library
@@ -131,7 +130,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               aria-expanded={menuOpen}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 6h16M4 12h16M4 18h16" stroke={isHome ? colors.neutral.light : "white"} strokeWidth={2} strokeLinecap="round" />
+                <path d="M4 6h16M4 12h16M4 18h16" stroke={isHome ? "#1A1A1C" : "white"} strokeWidth={2} strokeLinecap="round" />
               </svg>
             </button>
           </div>
