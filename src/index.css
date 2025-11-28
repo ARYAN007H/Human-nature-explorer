@@ -22,12 +22,15 @@ html {
 }
 
 .dark {
-  --hn-bg: #0D0F12;
-  --hn-fg: #F5F2ED;
-  --hn-primary: #121826;
-  --hn-accent: #F4A261;
-  --hn-secondary: #DB9EA2;
-  --hn-border: #273044;
+  --hn-bg: #0b0f0c; /* deep warm-olive background */
+  --hn-fg: #ECE6DF; /* warm off-white text */
+  --hn-primary: #14261f; /* deep pine */
+  --hn-accent: #C9A66B; /* sandy bronze accent */
+  --hn-secondary: #7F9B82; /* soft sage */
+  --hn-border: #25302b; /* muted dark border */
+  --hn-muted: #9DA79A; /* secondary muted text */
+  --hn-surface: #0f1a16; /* card / surface tone */
+  --hn-glow: rgba(201,166,107,0.12); /* subtle accent glow */
 }
 
 /* Accessibility: Respect prefers-reduced-motion */
