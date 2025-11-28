@@ -2,7 +2,6 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Canvas3D from "../components/3D/Canvas3D";
 import { chapterLookup, chapters } from "../constants/chapters";
-import { colors } from "../constants/designTokens";
 import { useEffect } from "react";
 
 const DeepDetailPage: React.FC = () => {
@@ -28,7 +27,7 @@ const DeepDetailPage: React.FC = () => {
 
   return (
     <div className="w-full">
-      <section className="w-full h-64 md:h-96 relative" style={{ backgroundColor: colors.neutral.light }}>
+      <section className="w-full h-64 md:h-96 relative" style={{ backgroundColor: "var(--color-bg-secondary)" }}>
         <Canvas3D chapterId={chapterId} autoRotate={false} />
         <div className="absolute inset-0 flex items-center justify-center" style={{ background: `linear-gradient(to top, rgba(0,0,0,0.35), transparent)` }}>
           <div className="text-center text-white p-6">
@@ -40,8 +39,8 @@ const DeepDetailPage: React.FC = () => {
 
       <main className="max-w-4xl mx-auto p-8 md:p-12 prose-custom">
         <header className="mb-8">
-          <h2 className="text-3xl font-serif font-bold mb-4" style={{ color: colors.primary.main }}>{chapter.title}</h2>
-          <p className="text-lg text-muted mb-4" style={{ color: colors.neutral.gray }}>{chapter.teaser}</p>
+          <h2 className="text-3xl font-serif font-bold mb-4" style={{ color: "var(--color-primary)" }}>{chapter.title}</h2>
+          <p className="text-lg text-muted mb-4" style={{ color: "var(--color-text-secondary)" }}>{chapter.teaser}</p>
 
           {/* Section navigation for subtopics */}
           {chapter.subtopics && chapter.subtopics.length > 0 && (
@@ -63,7 +62,7 @@ const DeepDetailPage: React.FC = () => {
             {chapter.longDescription && (
               <div className="space-y-6">
                 {chapter.longDescription.split("\n\n").map((p, i) => (
-                  <p key={i} style={{ color: colors.neutral.dark }} className="leading-relaxed">{p}</p>
+                  <p key={i} style={{ color: "var(--color-text)" }} className="leading-relaxed">{p}</p>
                 ))}
               </div>
             )}
@@ -75,7 +74,7 @@ const DeepDetailPage: React.FC = () => {
               <h3 className="text-2xl font-semibold mb-4">Subtopics</h3>
               <div className="space-y-6">
                 {chapter.subtopics.map((s) => (
-                  <article key={s.id} id={s.id} className="p-4 rounded-lg border bg-white" style={{ borderColor: colors.border }}>
+                  <article key={s.id} id={s.id} className="p-4 rounded-lg border bg-white" style={{ borderColor: "var(--color-border)" }}>
                     <header className="flex items-start justify-between gap-4">
                       <div>
                         <h4 className="text-xl font-semibold">{s.title}</h4>
@@ -121,14 +120,14 @@ const DeepDetailPage: React.FC = () => {
 
           <section>
             <h3 className="text-2xl font-semibold mb-4">Further Reading & Context</h3>
-            <p style={{ color: colors.neutral.dark }}>
+            <p style={{ color: "var(--color-text)" }}>
               Below are the primary sources and recommended further reading. These give a scholarly foundation and additional context if you'd like to explore the original research.
             </p>
             <div className="mt-6 space-y-4">
               {chapter.citations.map((c, idx) => (
-                <div key={idx} className="p-4 rounded-lg" style={{ backgroundColor: 'white', border: `1px solid ${colors.border}` }}>
-                  <p className="font-semibold" style={{ color: colors.primary.main }}>{c.title}</p>
-                  <p style={{ color: colors.neutral.gray }}>{c.author} ({c.year})</p>
+                <div key={idx} className="p-4 rounded-lg" style={{ backgroundColor: 'white', border: `1px solid var(--color-border)` }}>
+                  <p className="font-semibold" style={{ color: "var(--color-primary)" }}>{c.title}</p>
+                  <p style={{ color: "var(--color-text-secondary)" }}>{c.author} ({c.year})</p>
                   <div className="mt-2">
                           {c.doi && (
                             <span className="text-xs opacity-80">DOI: {c.doi}</span>
@@ -144,10 +143,10 @@ const DeepDetailPage: React.FC = () => {
 
           <section>
             <h3 className="text-2xl font-semibold mb-4">Practical Implications</h3>
-            <p style={{ color: colors.neutral.dark }}>
+            <p style={{ color: "var(--color-text)" }}>
               This section translates the research into practical, actionable steps and exercises you can try. Use these as experiments—small practices to observe how the ideas show up in your life.
             </p>
-            <ul className="list-disc pl-6 mt-4" style={{ color: colors.neutral.dark }}>
+            <ul className="list-disc pl-6 mt-4" style={{ color: "var(--color-text)" }}>
               <li>Try journaling for 7 days about instances related to this topic and note patterns.</li>
               <li>Practice one focused exercise from the chapter each day for a week.</li>
               <li>Observe and record social contexts where this phenomenon is strongest.</li>
@@ -156,7 +155,7 @@ const DeepDetailPage: React.FC = () => {
 
           <section>
             <h3 className="text-2xl font-semibold mb-4">Caveats & Open Questions</h3>
-            <p style={{ color: colors.neutral.dark }}>
+            <p style={{ color: "var(--color-text)" }}>
               Psychology is an evolving science. Many findings have boundary conditions and context-specific effects. Use the research as a guide, not an absolute prescription.
             </p>
           </section>

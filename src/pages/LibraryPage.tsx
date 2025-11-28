@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { chapters } from "../constants/chapters";
 import { useNavigate } from "react-router-dom";
-import { colors } from "../constants/designTokens";
 
 const LibraryPage: React.FC = () => {
   const [query, setQuery] = useState("");
@@ -69,7 +68,7 @@ const LibraryPage: React.FC = () => {
 
       <div className="grid gap-6">
         {filtered.map((ch) => (
-          <article key={ch.id} className="p-6 rounded-lg shadow-sm bg-white border" style={{ borderColor: colors.border }}>
+          <article key={ch.id} className="p-6 rounded-lg shadow-sm bg-white border" style={{ borderColor: "var(--color-border)" }}>
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <h3 className="text-xl font-semibold mb-1">{ch.title}</h3>

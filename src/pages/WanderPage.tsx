@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import ChapterCard from "../components/Chapters/ChapterCard";
 import { chapters } from "../constants/chapters";
-import { colors } from "../constants/designTokens";
 
 const WanderPage: React.FC = () => {
   const navigate = useNavigate();
@@ -38,7 +37,7 @@ const WanderPage: React.FC = () => {
       <section
         className="py-20 px-4"
         style={{
-          background: `linear-gradient(135deg, ${colors.secondary.main} 0%, ${colors.primary.main} 100%)`,
+          background: "linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%)",
         }}
       >
         <div className="max-w-6xl mx-auto text-center">
@@ -53,11 +52,11 @@ const WanderPage: React.FC = () => {
       </section>
 
       {/* Search & Sort */}
-      <section className="py-12 px-4 bg-neutral-light border-b" style={{ borderColor: colors.border }}>
+      <section className="py-12 px-4 bg-neutral-light border-b" style={{ borderColor: "var(--color-border)" }}>
         <div className="max-w-6xl mx-auto">
           {/* Search */}
           <div className="mb-8">
-            <label className="block text-sm font-semibold mb-3" style={{ color: colors.primary.main }}>
+            <label className="block text-sm font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
               Search Chapters
             </label>
             <input
@@ -67,7 +66,7 @@ const WanderPage: React.FC = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full px-4 py-3 rounded-lg border-2 transition-all focus:outline-none"
               style={{
-                borderColor: colors.accent.main,
+                borderColor: "var(--color-accent)",
               }}
               aria-label="Search chapters by title or keyword"
             />
@@ -75,7 +74,7 @@ const WanderPage: React.FC = () => {
 
           {/* Sort */}
           <div>
-            <label className="block text-sm font-semibold mb-3" style={{ color: colors.primary.main }}>
+            <label className="block text-sm font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
               Sort By
             </label>
             <div className="flex flex-wrap gap-3">
@@ -89,9 +88,9 @@ const WanderPage: React.FC = () => {
                   onClick={() => setSortBy(option.value)}
                   className="px-4 py-2 rounded-lg font-medium transition-all"
                   style={{
-                    backgroundColor: sortBy === option.value ? colors.accent.main : "white",
-                    color: sortBy === option.value ? "white" : colors.primary.main,
-                    border: `2px solid ${colors.accent.main}`,
+                    backgroundColor: sortBy === option.value ? "var(--color-accent)" : "white",
+                    color: sortBy === option.value ? "white" : "var(--color-primary)",
+                    border: `2px solid var(--color-accent)`,
                   }}
                 >
                   {option.label}
@@ -107,7 +106,7 @@ const WanderPage: React.FC = () => {
         <div className="max-w-6xl mx-auto">
           {filteredChapters.length > 0 ? (
             <>
-              <p className="mb-8 text-center" style={{ color: colors.neutral.gray }}>
+              <p className="mb-8 text-center" style={{ color: "var(--color-text-secondary)" }}>
                 Showing {filteredChapters.length} of {chapters.length} chapters
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -124,16 +123,16 @@ const WanderPage: React.FC = () => {
             </>
           ) : (
             <div className="text-center py-12">
-              <p className="text-2xl font-serif mb-4" style={{ color: colors.primary.main }}>
+              <p className="text-2xl font-serif mb-4" style={{ color: "var(--color-primary)" }}>
                 No chapters found
               </p>
-              <p style={{ color: colors.neutral.gray }}>
+              <p style={{ color: "var(--color-text-secondary)" }}>
                 Try a different search term or browse all chapters by clearing the search.
               </p>
               <button
                 onClick={() => setSearchQuery("")}
                 className="mt-6 px-6 py-2 rounded-lg font-semibold transition-all"
-                style={{ backgroundColor: colors.accent.main, color: "white" }}
+                style={{ backgroundColor: "var(--color-accent)", color: "white" }}
               >
                 Clear Search
               </button>
@@ -146,47 +145,47 @@ const WanderPage: React.FC = () => {
       <section
         className="py-20 px-4"
         style={{
-          backgroundColor: `${colors.primary.main}10`,
-          borderTop: `2px solid ${colors.primary.main}`,
+          backgroundColor: "var(--color-accent-light)",
+          borderTop: `2px solid var(--color-primary)`,
         }}
       >
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-serif font-bold mb-8" style={{ color: colors.primary.main }}>
+          <h2 className="text-3xl font-serif font-bold mb-8" style={{ color: "var(--color-primary)" }}>
             Tip: Start With Your Curiosity
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
             <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: colors.primary.main }}>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
                 💭 Wondering About Yourself?
               </h3>
-              <p style={{ color: colors.neutral.gray }}>
+              <p style={{ color: "var(--color-text-secondary)" }}>
                 Try <strong>Attachment & Relationships</strong> to understand your relationship patterns, or{" "}
                 <strong>Memory & Learning</strong> to understand how you absorb information.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: colors.primary.main }}>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
                 🎯 Understanding Others?
               </h3>
-              <p style={{ color: colors.neutral.gray }}>
+              <p style={{ color: "var(--color-text-secondary)" }}>
                 Explore <strong>Empathy & Mirror Neurons</strong> to understand social connection, or{" "}
                 <strong>Social Roles</strong> to see why people behave differently in different contexts.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: colors.primary.main }}>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
                 ⚙️ Decision-Making?
               </h3>
-              <p style={{ color: colors.neutral.gray }}>
+              <p style={{ color: "var(--color-text-secondary)" }}>
                 Read <strong>Cognitive Biases</strong> to see how your thinking can fool you, or{" "}
                 <strong>Motivation & Goals</strong> to align your actions with your values.
               </p>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: colors.primary.main }}>
+              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
                 😔 Working Through Challenges?
               </h3>
-              <p style={{ color: colors.neutral.gray }}>
+              <p style={{ color: "var(--color-text-secondary)" }}>
                 Consider <strong>Fear & Threat Response</strong> if anxiety is present, or{" "}
                 <strong>Emotions & Feelings</strong> to better understand your inner world.
               </p>
@@ -196,11 +195,11 @@ const WanderPage: React.FC = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-12 px-4 text-center" style={{ backgroundColor: colors.neutral.light }}>
+      <section className="py-12 px-4 text-center" style={{ backgroundColor: "var(--color-bg-secondary)" }}>
         <button
           onClick={() => navigate("/")}
           className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 inline-block"
-          style={{ backgroundColor: colors.secondary.main, color: colors.neutral.dark }}
+          style={{ backgroundColor: "var(--color-secondary)", color: "var(--color-text)" }}
         >
           Back to Home
         </button>

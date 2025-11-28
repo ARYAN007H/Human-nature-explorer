@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Chapter } from "../../constants/chapters";
-import { colors } from "../../constants/designTokens";
 
 interface ChapterContentProps {
   chapter: Chapter;
@@ -122,7 +121,7 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
   }, [showDeep]);
 
   return (
-    <div className="max-w-3xl mx-auto p-8 md:p-12 prose-custom" style={{ backgroundColor: colors.neutral.light }}>
+    <div className="max-w-3xl mx-auto p-8 md:p-12 prose-custom" style={{ backgroundColor: "var(--color-bg-secondary)" }}>
       {/* Category Badge */}
       <div className="mb-6">
         <span
@@ -138,14 +137,14 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
 
       {/* Title (from page, but repeated for context) */}
       <div className="mb-8">
-        <p className="text-lg italic mb-4" style={{ color: colors.neutral.gray }}>
+        <p className="text-lg italic mb-4" style={{ color: "var(--color-text-secondary)" }}>
           {chapter.teaser}
         </p>
       </div>
 
       {/* Main Content */}
       <div className="prose prose-lg max-w-none mb-8">
-        <p className="text-lg leading-relaxed mb-6" style={{ color: colors.neutral.dark }}>
+        <p className="text-lg leading-relaxed mb-6" style={{ color: "var(--color-text)" }}>
           {chapter.description}
         </p>
 
@@ -153,7 +152,7 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
         {chapter.longDescription && (
           <div className="mt-8 space-y-6">
             {chapter.longDescription.split("\n\n").map((paragraph, index) => (
-              <p key={index} className="text-base leading-relaxed" style={{ color: colors.neutral.dark }}>
+              <p key={index} className="text-base leading-relaxed" style={{ color: "var(--color-text)" }}>
                 {paragraph}
               </p>
             ))}
@@ -186,7 +185,7 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
               {chapter.longDescription && (
                 <div className="mt-2 space-y-3">
                   {chapter.longDescription.split('\n\n').map((p, i) => (
-                    <p key={i} className="text-base leading-relaxed" style={{ color: colors.neutral.dark }}>{p}</p>
+                    <p key={i} className="text-base leading-relaxed" style={{ color: "var(--color-text)" }}>{p}</p>
                   ))}
                 </div>
               )}
@@ -234,9 +233,9 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
               <h3 className="text-lg font-semibold mb-2">Further reading & context</h3>
               <div className="space-y-3">
                 {chapter.citations.map((c, idx) => (
-                  <div key={idx} className="p-3 rounded flex flex-col" style={{ backgroundColor: '#fafafa', border: `1px solid ${colors.border}` }}>
-                    <p className="font-semibold" style={{ color: colors.primary.main }}>{c.title}</p>
-                    <p className="text-sm" style={{ color: colors.neutral.gray }}>{c.author} ({c.year})</p>
+                  <div key={idx} className="p-3 rounded flex flex-col" style={{ backgroundColor: '#fafafa', border: `1px solid var(--color-border)` }}>
+                    <p className="font-semibold" style={{ color: "var(--color-primary)" }}>{c.title}</p>
+                    <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>{c.author} ({c.year})</p>
                     {c.doi && (
                       <div className="flex items-center gap-3 mt-2">
                         <span className="text-xs opacity-80">DOI: {c.doi}</span>
@@ -262,7 +261,7 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
             borderLeft: `4px solid ${chapter.color}`,
           }}
         >
-          <h3 className="text-2xl font-serif font-bold mb-6" style={{ color: colors.primary.main }}>
+          <h3 className="text-2xl font-serif font-bold mb-6" style={{ color: "var(--color-primary)" }}>
             Key Concepts
           </h3>
           <ul className="space-y-3">
@@ -271,7 +270,7 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
               .filter((item) => item.trim().length > 10)
               .slice(0, 5)
               .map((item, index) => (
-                <li key={index} className="flex gap-3" style={{ color: colors.neutral.dark }}>
+                <li key={index} className="flex gap-3" style={{ color: "var(--color-text)" }}>
                   <span
                     className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
                     style={{ backgroundColor: chapter.color }}

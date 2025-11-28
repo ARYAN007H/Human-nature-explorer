@@ -3,7 +3,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import Canvas3D from "../components/3D/Canvas3D";
 import ChapterContent from "../components/Chapters/ChapterContent";
 import { chapterLookup, chapters } from "../constants/chapters";
-import { colors } from "../constants/designTokens";
 
 const ChapterDetailPage: React.FC = () => {
   const { chapterId } = useParams<{ chapterId: string }>();
@@ -41,7 +40,7 @@ const ChapterDetailPage: React.FC = () => {
   return (
     <div className="w-full">
       {/* 3D Canvas Section */}
-      <section className="w-full h-96 md:h-screen relative" style={{ backgroundColor: colors.neutral.light }}>
+      <section className="w-full h-96 md:h-screen relative" style={{ backgroundColor: "var(--color-bg-secondary)" }}>
         <Suspense
           fallback={
             <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
@@ -83,7 +82,7 @@ const ChapterDetailPage: React.FC = () => {
         }}
       >
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-4xl font-serif font-bold mb-12" style={{ color: colors.primary.main }}>
+          <h2 className="text-4xl font-serif font-bold mb-12" style={{ color: "var(--color-primary)" }}>
             Reflection Prompts
           </h2>
 
@@ -100,7 +99,7 @@ const ChapterDetailPage: React.FC = () => {
                 onClick={() => setExpandedPrompt(expandedPrompt === index ? null : index)}
               >
                 <div className="flex justify-between items-start gap-4">
-                  <h3 className="text-lg font-semibold flex-1" style={{ color: colors.primary.main }}>
+                  <h3 className="text-lg font-semibold flex-1" style={{ color: "var(--color-primary)" }}>
                     {prompt.question}
                   </h3>
                   <span className="text-2xl flex-shrink-0">{expandedPrompt === index ? "−" : "+"}</span>
@@ -109,7 +108,7 @@ const ChapterDetailPage: React.FC = () => {
                 {expandedPrompt === index && (
                   <div className="mt-6 pt-6 border-t border-gray-200">
                     {prompt.hint && (
-                      <p className="mb-4 p-4 rounded bg-amber-50" style={{ color: colors.neutral.gray }}>
+                      <p className="mb-4 p-4 rounded bg-amber-50" style={{ color: "var(--color-text-secondary)" }}>
                         <strong>Hint:</strong> {prompt.hint}
                       </p>
                     )}
@@ -144,7 +143,7 @@ const ChapterDetailPage: React.FC = () => {
       {/* Citations */}
       <section className="py-16 px-4 bg-neutral-light">
         <div className="max-w-3xl mx-auto">
-          <h3 className="text-2xl font-serif font-bold mb-8" style={{ color: colors.primary.main }}>
+          <h3 className="text-2xl font-serif font-bold mb-8" style={{ color: "var(--color-primary)" }}>
             Sources & Citations
           </h3>
           <div className="space-y-4">
@@ -152,12 +151,12 @@ const ChapterDetailPage: React.FC = () => {
               <div
                 key={index}
                 className="p-4 rounded-lg"
-                style={{ backgroundColor: "white", border: `1px solid ${colors.border}` }}
+                style={{ backgroundColor: "white", border: `1px solid var(--color-border)` }}
               >
-                <p className="font-semibold" style={{ color: colors.primary.main }}>
+                <p className="font-semibold" style={{ color: "var(--color-primary)" }}>
                   {citation.title}
                 </p>
-                <p style={{ color: colors.neutral.gray }}>
+                <p style={{ color: "var(--color-text-secondary)" }}>
                   {citation.author} ({citation.year})
                   {citation.doi && (
                     <>
@@ -194,7 +193,7 @@ const ChapterDetailPage: React.FC = () => {
             <button
               onClick={() => navigate(`/chapter/${previousChapter.id}`)}
               className="px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
-              style={{ backgroundColor: colors.secondary.main, color: colors.neutral.dark }}
+              style={{ backgroundColor: "var(--color-secondary)", color: "var(--color-text)" }}
             >
               ← {previousChapter.title}
             </button>
@@ -205,7 +204,7 @@ const ChapterDetailPage: React.FC = () => {
           <button
             onClick={() => navigate("/explore")}
             className="px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
-            style={{ backgroundColor: colors.accent.main, color: colors.neutral.dark }}
+            style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text)" }}
           >
             Back to Explorer
           </button>
@@ -214,7 +213,7 @@ const ChapterDetailPage: React.FC = () => {
             <button
               onClick={() => navigate(`/chapter/${nextChapter.id}`)}
               className="px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105"
-              style={{ backgroundColor: colors.secondary.main, color: colors.neutral.dark }}
+              style={{ backgroundColor: "var(--color-secondary)", color: "var(--color-text)" }}
             >
               {nextChapter.title} →
             </button>

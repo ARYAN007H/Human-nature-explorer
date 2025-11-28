@@ -1,6 +1,5 @@
 import React from "react";
 import { chapterLookup } from "../../constants/chapters";
-import { colors } from "../../constants/designTokens";
 
 interface Fallback2DProps {
   chapterId?: string;
@@ -8,7 +7,7 @@ interface Fallback2DProps {
 
 export const Fallback2D: React.FC<Fallback2DProps> = ({ chapterId = "emotions" }) => {
   const chapter = chapterId ? chapterLookup[chapterId] : null;
-  const bgColor = chapter?.color || colors.secondary.main;
+  const bgColor = chapter?.color || "#FF9500";
 
   return (
     <div
@@ -21,15 +20,15 @@ export const Fallback2D: React.FC<Fallback2DProps> = ({ chapterId = "emotions" }
         <div className="text-6xl mb-6">✨</div>
         <h3
           className="text-3xl font-serif font-bold mb-4"
-          style={{ color: colors.primary.main }}
+          style={{ color: "var(--color-primary)" }}
         >
           2D Experience
         </h3>
-        <p className="mb-6" style={{ color: colors.neutral.gray }}>
+        <p className="mb-6" style={{ color: "var(--color-text-secondary)" }}>
           Your browser doesn't support WebGL 3D graphics, so we're showing a beautiful 2D version instead. The content
           and insights are the same.
         </p>
-        <p className="text-sm" style={{ color: colors.neutral.gray }}>
+        <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>
           <strong>Tip:</strong> Try this on a device with better graphics support for the full 3D experience, or
           continue exploring in 2D.
         </p>
