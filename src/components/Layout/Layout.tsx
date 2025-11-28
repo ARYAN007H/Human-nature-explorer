@@ -29,10 +29,13 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       <a href="#main-content" className="skip-link sr-only focus:not-sr-only" style={{position: 'absolute', left: 8, top: 8, zIndex: 60}}>Skip to content</a>
       {/* Header/Navigation */}
       <nav
-        className={`sticky top-0 z-50 px-4 py-3 transition-all backdrop-blur-sm ${scrolled ? "shadow-md" : ""}`}
+        className={`sticky top-0 z-50 px-6 py-3 transition-all ${scrolled ? "shadow-lg" : ""}`}
         style={{
-          backgroundColor: isHome ? (scrolled ? "rgba(255,255,255,0.8)" : "transparent") : "var(--color-surface-primary)",
-          borderBottom: isHome || !scrolled ? "none" : `1px solid var(--color-border)`,
+          backgroundColor: isHome ? (scrolled ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.08)") : "rgba(28,28,30,0.7)",
+          backdropFilter: "blur(24px)",
+          WebkitBackdropFilter: "blur(24px)",
+          borderBottom: isHome || !scrolled ? "none" : `1px solid rgba(${isHome ? "0,0,0" : "255,255,255"},0.15)`,
+          borderRadius: scrolled ? "0 0 20px 20px" : "0",
           color: isHome ? "#1A1A1C" : "white",
         }}
       >

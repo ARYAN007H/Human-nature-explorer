@@ -240,6 +240,7 @@ body {
   font-size: var(--text-base);
   font-weight: var(--weight-regular);
   line-height: var(--leading-normal);
+  letter-spacing: -0.4px;
   color: var(--color-text);
   background-color: var(--color-bg);
   transition: background-color var(--duration-base) var(--easing),
@@ -251,39 +252,50 @@ body {
    ============================================================================ */
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: var(--weight-bold);
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
   line-height: var(--leading-tight);
   margin: 0;
+  letter-spacing: -0.5px;
 }
 
 h1 {
-  font-size: var(--text-5xl);
+  font-size: var(--text-6xl);
+  font-weight: var(--weight-bold);
 }
 
 h2 {
-  font-size: var(--text-4xl);
+  font-size: var(--text-5xl);
+  font-weight: var(--weight-bold);
 }
 
 h3 {
-  font-size: var(--text-3xl);
+  font-size: var(--text-4xl);
+  font-weight: var(--weight-semibold);
 }
 
 h4 {
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-semibold);
 }
 
 h5 {
-  font-size: var(--text-xl);
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-semibold);
 }
 
 h6 {
-  font-size: var(--text-lg);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-semibold);
 }
 
 p {
   margin: 0;
   color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: var(--weight-regular);
+  line-height: var(--leading-relaxed);
 }
 
 /* Improve dark mode text readability */
@@ -316,6 +328,23 @@ code {
   color: var(--color-text-secondary);
   padding: var(--space-1) var(--space-2);
   border-radius: var(--radius-sm);
+}
+
+/* ============================================================================
+   COMPONENTS - NAVIGATION
+   ============================================================================ */
+
+nav {
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+nav button {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  letter-spacing: -0.3px;
 }
 
 /* ============================================================================
@@ -558,6 +587,39 @@ button:disabled {
   box-shadow: 0 12px 40px rgba(77, 169, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
+/* ---- HERO CONTENT BOX (Glass Effect) ---- */
+.hero-content-glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 28px;
+  padding: 48px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 2px rgba(255, 255, 255, 0.4), inset 0 -1px 2px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 25% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-content-glass h2,
+.hero-content-glass h3,
+.hero-content-glass p {
+  position: relative;
+  z-index: 1;
+}
+
+.dark .hero-content-glass {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1);
+}
 
 /* ============================================================================
    COMPONENTS - MODAL
