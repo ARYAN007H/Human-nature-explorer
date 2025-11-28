@@ -24,8 +24,8 @@ export function useCursorPosition(): CursorPosition {
     const handleMouseMove = (e: MouseEvent) => {
       const x = e.clientX;
       const y = e.clientY;
-      const normalizedX = x / window.innerWidth;
-      const normalizedY = y / window.innerHeight;
+      const normalizedX = window.innerWidth ? x / window.innerWidth : 0.5;
+      const normalizedY = window.innerHeight ? y / window.innerHeight : 0.5;
 
       setCursorPosition({
         x,
@@ -35,17 +35,24 @@ export function useCursorPosition(): CursorPosition {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      const x = touch.clientX;
-      const y = touch.clientY;
-      const normalizedX = x / window.innerWidth;
-      const normalizedY = y / window.innerHeight;
+      try {
+        if (!e.touches || e.touches.length === 0) return;
+        const touch = e.touches[0];
+        const x = touch.clientX;
+        const y = touch.clientY;
+        const normalizedX = window.innerWidth ? x / window.innerWidth : 0.5;
+        const normalizedY = window.innerHeight ? y / window.innerHeight : 0.5;
 
-      setCursorPosition({
-        x,
-        y,
-        normalized: { x: normalizedX, y: normalizedY },
-      });
+        setCursorPosition({
+          x,
+          y,
+          normalized: { x: normalizedX, y: normalizedY },
+        });
+      } catch (err) {
+        // Defensive: ignore touch events that are malformed during rapid viewport changes
+        // (some browsers/devtools may emit inconsistent events when toggling device mode)
+        return;
+      }
     };
 
     window.addEventListener("mousemove", handleMouseMove, { passive: true });

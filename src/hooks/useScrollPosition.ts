@@ -17,27 +17,32 @@ export function useScrollPosition(): ScrollPosition {
   });
 
   useEffect(() => {
-    let previousY = 0;
-    let previousX = 0;
+    let previousY = typeof window !== "undefined" ? window.scrollY : 0;
+    let previousX = typeof window !== "undefined" ? window.scrollX : 0;
 
     const handleScroll = () => {
-      const currentY = window.scrollY;
-      const currentX = window.scrollX;
+      try {
+        const currentY = typeof window !== "undefined" ? window.scrollY : previousY;
+        const currentX = typeof window !== "undefined" ? window.scrollX : previousX;
 
-      let direction: ScrollPosition["direction"] = "none";
-      if (currentY > previousY) direction = "down";
-      else if (currentY < previousY) direction = "up";
-      else if (currentX > previousX) direction = "right";
-      else if (currentX < previousX) direction = "left";
+        let direction: ScrollPosition["direction"] = "none";
+        if (currentY > previousY) direction = "down";
+        else if (currentY < previousY) direction = "up";
+        else if (currentX > previousX) direction = "right";
+        else if (currentX < previousX) direction = "left";
 
-      setScrollPosition({
-        x: currentX,
-        y: currentY,
-        direction,
-      });
+        setScrollPosition({
+          x: currentX,
+          y: currentY,
+          direction,
+        });
 
-      previousY = currentY;
-      previousX = currentX;
+        previousY = currentY;
+        previousX = currentX;
+      } catch (err) {
+        // Defensive: ignore transient errors during rapid viewport/device-mode switches
+        return;
+      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { colors } from "../../constants/designTokens";
+import { useDarkMode } from "../../hooks/useDarkMode";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isDark, toggleDark] = useDarkMode();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -43,6 +45,20 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               aria-label="Home"
             >
               HNE
+            </button>
+
+            {/* Dark mode toggle */}
+            <button
+              onClick={() => toggleDark()}
+              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              title={isDark ? "Light mode" : "Dark mode"}
+              className="ml-2 p-2 rounded-md"
+            >
+              {isDark ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
+              ) : (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2M5 5L3.5 3.5M20.5 20.5L19 19M5 19l-1.5 1.5M20.5 3.5L19 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              )}
             </button>
 
             <div className="hidden md:flex items-center gap-3 ml-3">

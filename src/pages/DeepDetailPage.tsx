@@ -130,12 +130,12 @@ const DeepDetailPage: React.FC = () => {
                   <p className="font-semibold" style={{ color: colors.primary.main }}>{c.title}</p>
                   <p style={{ color: colors.neutral.gray }}>{c.author} ({c.year})</p>
                   <div className="mt-2">
-                    {c.doi && (
-                      <a href={`https://doi.org/${c.doi}`} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">DOI: {c.doi}</a>
-                    )}
-                    {c.url && (
-                      <a href={c.url} target="_blank" rel="noopener noreferrer" className="ml-4 text-accent hover:underline">Link</a>
-                    )}
+                          {c.doi && (
+                            <span className="text-xs opacity-80">DOI: {c.doi}</span>
+                          )}
+                          {c.url && (
+                            <span className="ml-4 text-xs opacity-80">URL: {c.url}</span>
+                          )}
                   </div>
                 </div>
               ))}
