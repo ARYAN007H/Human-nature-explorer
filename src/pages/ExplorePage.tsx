@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ChapterCard from "../components/Chapters/ChapterCard";
 import { chapters, chaptersByCategory } from "../constants/chapters";
-import { colors } from "../constants/designTokens";
 
 const ExplorePage: React.FC = () => {
   const navigate = useNavigate();
@@ -17,14 +16,15 @@ const ExplorePage: React.FC = () => {
       <section
         className="py-20 px-4"
         style={{
-          background: `linear-gradient(135deg, ${colors.primary.main} 0%, ${colors.secondary.main} 100%)`,
+          background: `linear-gradient(135deg, var(--color-surface-primary) 0%, var(--color-surface-secondary) 100%)`,
+          color: "white",
         }}
       >
         <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-neutral-light mb-6">
+          <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-6">
             Guided Exploration
           </h1>
-          <p className="text-lg md:text-xl text-neutral-light opacity-90 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-white opacity-90 max-w-2xl mx-auto">
             Follow a structured path through 8 core concepts in psychology and human behavior. Each chapter builds on
             the last.
           </p>
@@ -32,9 +32,9 @@ const ExplorePage: React.FC = () => {
       </section>
 
       {/* Category Filter */}
-      <section className="py-12 px-4 bg-neutral-light border-b" style={{ borderColor: colors.border }}>
+      <section className="py-12 px-4 border-b" style={{ backgroundColor: "var(--color-bg-primary)", borderColor: "var(--color-border)" }}>
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-sm font-semibold uppercase mb-6" style={{ color: colors.neutral.gray }}>
+          <h2 className="text-sm font-semibold uppercase mb-6" style={{ color: "var(--color-fg-secondary)" }}>
             Filter by Category
           </h2>
           <div className="flex flex-wrap gap-3">
@@ -42,9 +42,9 @@ const ExplorePage: React.FC = () => {
               onClick={() => setSelectedCategory(null)}
               className="px-4 py-2 rounded-full font-medium transition-all"
               style={{
-                backgroundColor: selectedCategory === null ? colors.primary.main : "white",
-                color: selectedCategory === null ? "white" : colors.primary.main,
-                border: `2px solid ${colors.primary.main}`,
+                backgroundColor: selectedCategory === null ? "var(--color-surface-primary)" : "var(--color-bg-secondary)",
+                color: selectedCategory === null ? "white" : "var(--color-surface-primary)",
+                border: `2px solid var(--color-surface-primary)`,
               }}
             >
               All Chapters
@@ -55,9 +55,9 @@ const ExplorePage: React.FC = () => {
                 onClick={() => setSelectedCategory(category)}
                 className="px-4 py-2 rounded-full font-medium transition-all"
                 style={{
-                  backgroundColor: selectedCategory === category ? colors.primary.main : "white",
-                  color: selectedCategory === category ? "white" : colors.primary.main,
-                  border: `2px solid ${colors.primary.main}`,
+                  backgroundColor: selectedCategory === category ? "var(--color-surface-primary)" : "var(--color-bg-secondary)",
+                  color: selectedCategory === category ? "white" : "var(--color-surface-primary)",
+                  border: `2px solid var(--color-surface-primary)`,
                 }}
               >
                 {category}
@@ -84,7 +84,7 @@ const ExplorePage: React.FC = () => {
 
           {displayedChapters.length === 0 && (
             <div className="text-center py-12">
-              <p style={{ color: colors.neutral.gray }}>No chapters found in this category.</p>
+              <p style={{ color: "var(--color-fg-secondary)" }}>No chapters found in this category.</p>
             </div>
           )}
         </div>
@@ -94,27 +94,28 @@ const ExplorePage: React.FC = () => {
       <section
         className="py-20 px-4"
         style={{
-          backgroundColor: `${colors.secondary.main}15`,
-          borderTop: `2px solid ${colors.secondary.main}`,
+          backgroundColor: `var(--color-surface-secondary)`,
+          opacity: 0.15,
+          borderTop: `2px solid var(--color-surface-secondary)`,
         }}
       >
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-serif font-bold mb-8" style={{ color: colors.primary.main }}>
+          <h2 className="text-3xl font-serif font-bold mb-8" style={{ color: "var(--color-surface-primary)" }}>
             How This Works
           </h2>
           <div className="space-y-6">
             <div className="flex gap-4">
               <div
                 className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: colors.accent.main }}
+                style={{ backgroundColor: "var(--color-accent)" }}
               >
                 1
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: colors.primary.main }}>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
                   Explore the 3D Scene
                 </h3>
-                <p style={{ color: colors.neutral.gray }}>
+                <p style={{ color: "var(--color-fg-secondary)" }}>
                   Each chapter features an interactive 3D visualization that reacts to your cursor and scroll. Hover
                   and interact to discover visual metaphors of the concept.
                 </p>
@@ -124,15 +125,15 @@ const ExplorePage: React.FC = () => {
             <div className="flex gap-4">
               <div
                 className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: colors.accent.main }}
+                style={{ backgroundColor: "var(--color-accent)" }}
               >
                 2
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: colors.primary.main }}>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
                   Read the Content
                 </h3>
-                <p style={{ color: colors.neutral.gray }}>
+                <p style={{ color: "var(--color-fg-secondary)" }}>
                   Thoughtfully written explanations grounded in peer-reviewed psychology research. Each explanation
                   balances accuracy with accessibility.
                 </p>
@@ -142,15 +143,15 @@ const ExplorePage: React.FC = () => {
             <div className="flex gap-4">
               <div
                 className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: colors.accent.main }}
+                style={{ backgroundColor: "var(--color-accent)" }}
               >
                 3
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: colors.primary.main }}>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
                   Reflect & Respond
                 </h3>
-                <p style={{ color: colors.neutral.gray }}>
+                <p style={{ color: "var(--color-fg-secondary)" }}>
                   Three reflection prompts help you connect the concept to your own life. Your responses are saved
                   locally—no tracking, no servers.
                 </p>
@@ -160,15 +161,15 @@ const ExplorePage: React.FC = () => {
             <div className="flex gap-4">
               <div
                 className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: colors.accent.main }}
+                style={{ backgroundColor: "var(--color-accent)" }}
               >
                 4
               </div>
               <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: colors.primary.main }}>
+                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
                   Review Citations
                 </h3>
-                <p style={{ color: colors.neutral.gray }}>
+                <p style={{ color: "var(--color-fg-secondary)" }}>
                   All claims are backed by research. Every chapter includes citations and links to source material so
                   you can dive deeper.
                 </p>
@@ -179,11 +180,11 @@ const ExplorePage: React.FC = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-12 px-4 text-center" style={{ backgroundColor: colors.neutral.light }}>
+      <section className="py-12 px-4 text-center" style={{ backgroundColor: "var(--color-bg-primary)" }}>
         <button
           onClick={() => navigate("/")}
           className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 inline-block"
-          style={{ backgroundColor: colors.primary.main, color: "white" }}
+          style={{ backgroundColor: "var(--color-surface-primary)", color: "white" }}
         >
           Back to Home
         </button>

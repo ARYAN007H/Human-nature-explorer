@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Chapter } from "../../constants/chapters";
-import { colors } from "../../constants/designTokens";
 
 interface ChapterCardProps {
   chapter: Chapter;
@@ -13,9 +12,9 @@ export const ChapterCard: React.FC<ChapterCardProps> = ({ chapter }) => {
       <div
         className="p-8 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-all group-hover:scale-105"
         style={{
-          backgroundColor: "white",
+          backgroundColor: "var(--color-bg-secondary)",
           borderLeft: `4px solid ${chapter.color}`,
-          border: `1px solid ${colors.border}`,
+          border: `1px solid var(--color-border)`,
         }}
       >
       {/* Badge */}
@@ -32,7 +31,7 @@ export const ChapterCard: React.FC<ChapterCardProps> = ({ chapter }) => {
       </div>
 
       {/* Title */}
-      <h3 className="text-2xl font-serif font-bold mb-3 transition-colors group-hover:text-opacity-80" style={{ color: colors.primary.main }}>
+      <h3 className="text-2xl font-serif font-bold mb-3 transition-colors group-hover:text-opacity-80" style={{ color: "var(--color-surface-primary)" }}>
         {chapter.title}
       </h3>
 
@@ -42,13 +41,13 @@ export const ChapterCard: React.FC<ChapterCardProps> = ({ chapter }) => {
       </p>
 
       {/* Description Preview */}
-      <p className="text-sm leading-relaxed mb-6" style={{ color: colors.neutral.gray }}>
+      <p className="text-sm leading-relaxed mb-6" style={{ color: "var(--color-fg-secondary)" }}>
         {chapter.description.substring(0, 120)}...
       </p>
 
       {/* Footer with icons */}
-      <div className="flex justify-between items-center pt-4 border-t" style={{ borderColor: colors.border }}>
-        <div className="text-xs font-semibold uppercase" style={{ color: colors.neutral.gray }}>
+      <div className="flex justify-between items-center pt-4 border-t" style={{ borderColor: "var(--color-border)" }}>
+        <div className="text-xs font-semibold uppercase" style={{ color: "var(--color-fg-secondary)" }}>
           Read more →
         </div>
         <div className="flex items-center gap-4">
