@@ -44,14 +44,7 @@ const HomePage: React.FC = () => {
 
           {/* Onboarding */}
           {showOnboarding && (
-            <div
-              className="mb-12 p-6 rounded-lg"
-              style={{
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
-                backdropFilter: "blur(10px)",
-                border: `1px solid rgba(255, 255, 255, 0.2)`,
-              }}
-            >
+            <div className="hero-content-glass mb-12">
               <p className="text-sm md:text-base text-white mb-4 max-w-md mx-auto leading-relaxed">
                 <strong>Welcome.</strong> Choose your path: follow a guided journey or wander freely through
                 psychology's greatest insights. No accounts, no tracking—just curious minds exploring.
