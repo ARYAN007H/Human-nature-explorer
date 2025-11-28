@@ -23,6 +23,7 @@ export function useAudioInput(): AudioAnalysis {
     let dataArray: Uint8Array | null = null;
     let animationId: number | null = null;
 
+    // @ts-ignore - intentionally unused, uncomment in useEffect to enable
     const initAudio = async () => {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({

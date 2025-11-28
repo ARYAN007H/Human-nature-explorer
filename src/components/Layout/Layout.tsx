@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { colors, typography } from "../../constants/designTokens";
+import { colors } from "../../constants/designTokens";
 
 interface LayoutProps {
   children: React.ReactNode;
