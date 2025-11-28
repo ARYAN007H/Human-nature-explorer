@@ -286,6 +286,15 @@ p {
   color: var(--color-text);
 }
 
+/* Improve dark mode text readability */
+.dark p {
+  color: #F5F5F7;
+}
+
+.dark .prose-custom p {
+  color: #FFFFFF;
+}
+
 a {
   color: var(--color-primary);
   text-decoration: none;
@@ -431,6 +440,38 @@ button:disabled {
   border-color: rgba(77, 169, 255, 0.5);
 }
 
+/* Dark mode glass buttons */
+.dark .btn-glass {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.dark .btn-glass::before {
+  background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+}
+
+.dark .btn-glass:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.dark .btn-glass:active:not(:disabled) {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.dark .btn-glass-blue {
+  box-shadow: 0 4px 20px rgba(77, 169, 255, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border-color: rgba(77, 169, 255, 0.2);
+}
+
+.dark .btn-glass-blue:hover:not(:disabled) {
+  box-shadow: 0 8px 30px rgba(77, 169, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border-color: rgba(77, 169, 255, 0.3);
+}
+
 /* ============================================================================
    COMPONENTS - CARDS
    ============================================================================ */
@@ -488,6 +529,31 @@ button:disabled {
 
 .card-glass.card-glass-blue:hover {
   box-shadow: 0 12px 40px var(--glass-glow-blue), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+
+/* Dark mode glass cards */
+.dark .card-glass {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dark .card-glass::before {
+  background: radial-gradient(ellipse at 30% 30%, rgba(255, 255, 255, 0.06) 0%, transparent 50%);
+}
+
+.dark .card-glass:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+
+.dark .card-glass.card-glass-blue {
+  box-shadow: 0 8px 32px rgba(77, 169, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.dark .card-glass.card-glass-blue:hover {
+  box-shadow: 0 12px 40px rgba(77, 169, 255, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 
@@ -571,6 +637,27 @@ select:focus {
 input::placeholder,
 textarea::placeholder {
   color: var(--color-text-tertiary);
+}
+
+/* Dark mode input improvements */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.dark input:focus,
+.dark textarea:focus,
+.dark select:focus {
+  border-color: rgba(77, 169, 255, 0.5);
+  box-shadow: 0 0 0 3px rgba(77, 169, 255, 0.15);
 }
 
 /* ============================================================================
