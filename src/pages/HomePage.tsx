@@ -1,7 +1,7 @@
 import React, { Suspense, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas3D from "../components/3D/Canvas3D";
-import { colors, spacing, typography } from "../constants/designTokens";
+import { colors, typography } from "../constants/designTokens";
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();

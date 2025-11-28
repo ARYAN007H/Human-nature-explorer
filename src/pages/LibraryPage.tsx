@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { chapters, Chapter, Subtopic } from "../constants/chapters";
+import { chapters } from "../constants/chapters";
 import { useNavigate } from "react-router-dom";
 import { colors } from "../constants/designTokens";
 

@@ -41,7 +41,7 @@ export function useAudioInput(): AudioAnalysis {
         dataArray = new Uint8Array(analyser.frequencyBinCount);
 
         const analyze = () => {
-          analyser!.getByteFrequencyData(dataArray!);
+          analyser!.getByteFrequencyData(dataArray! as Uint8Array<ArrayBuffer>);
 
           const average =
             dataArray!.reduce((a, b) => a + b) / dataArray!.length;
