@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDarkMode } from "../../hooks/useDarkMode";
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 interface LayoutProps {
   children: React.ReactNode;
 }
