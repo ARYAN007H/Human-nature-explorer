@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ChapterCard from "../components/Chapters/ChapterCard";
 import { chapters, chaptersByCategory } from "../constants/chapters";
+import GlassSurface from "../components/ui/GlassSurface";
+import GlassButton from "../components/ui/GlassButton";
 
 const ExplorePage: React.FC = () => {
   const navigate = useNavigate();
@@ -12,63 +14,64 @@ const ExplorePage: React.FC = () => {
 
   return (
     <div className="w-full">
-      {/* Header */}
-      <section
-        className="py-20 px-4"
-        style={{
-          background: `linear-gradient(135deg, var(--color-surface-primary) 0%, var(--color-surface-secondary) 100%)`,
-          color: "white",
-        }}
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-white mb-6">
-            Guided Exploration
-          </h1>
-          <p className="text-lg md:text-xl text-white opacity-90 max-w-2xl mx-auto">
-            Follow a structured path through 8 core concepts in psychology and human behavior. Each chapter builds on
-            the last.
-          </p>
-        </div>
-      </section>
+      {/* Header + Filter as a single glass stack */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <GlassSurface
+            variant="hero"
+            depth="3"
+            className="px-6 md:px-10 py-10 md:py-12 text-white"
+          >
+            <p className="text-xs uppercase tracking-[0.32em] mb-3 opacity-70">
+              Mode · Guided
+            </p>
+            <h1 className="lg-heading-section mb-3">Guided exploration</h1>
+            <p className="text-sm md:text-base max-w-2xl text-[rgba(245,245,247,0.86)]">
+              Move through 8 core chapters in a deliberate sequence. Each scene and reflection builds
+              on what came before.
+            </p>
+          </GlassSurface>
 
-      {/* Category Filter */}
-      <section className="py-12 px-4 border-b" style={{ backgroundColor: "var(--color-bg-primary)", borderColor: "var(--color-border)" }}>
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-sm font-semibold uppercase mb-6" style={{ color: "var(--color-fg-secondary)" }}>
-            Filter by Category
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <button
-              onClick={() => setSelectedCategory(null)}
-              className="px-4 py-2 rounded-full font-medium transition-all"
-              style={{
-                backgroundColor: selectedCategory === null ? "var(--color-surface-primary)" : "var(--color-bg-secondary)",
-                color: selectedCategory === null ? "white" : "var(--color-surface-primary)",
-                border: `2px solid var(--color-surface-primary)`,
-              }}
-            >
-              All Chapters
-            </button>
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className="px-4 py-2 rounded-full font-medium transition-all"
-                style={{
-                  backgroundColor: selectedCategory === category ? "var(--color-surface-primary)" : "var(--color-bg-secondary)",
-                  color: selectedCategory === category ? "white" : "var(--color-surface-primary)",
-                  border: `2px solid var(--color-surface-primary)`,
-                }}
+          <GlassSurface
+            variant="panel"
+            depth="2"
+            className="px-4 md:px-6 py-4 md:py-5 flex flex-col md:flex-row md:items-center justify-between gap-4 text-sm text-white/90"
+          >
+            <div>
+              <p className="uppercase text-[10px] tracking-[0.26em] mb-1 opacity-70">
+                Filter
+              </p>
+              <p className="text-xs md:text-sm opacity-80">
+                Focus on one dimension of human nature at a time.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2 md:gap-3">
+              <GlassButton
+                variant={selectedCategory === null ? "primary" : "secondary"}
+                accent="cyan"
+                className="px-4 py-1.5 text-xs"
+                onClick={() => setSelectedCategory(null)}
               >
-                {category}
-              </button>
-            ))}
-          </div>
+                All chapters
+              </GlassButton>
+              {categories.map((category) => (
+                <GlassButton
+                  key={category}
+                  variant={selectedCategory === category ? "primary" : "secondary"}
+                  accent="blue"
+                  className="px-4 py-1.5 text-xs"
+                  onClick={() => setSelectedCategory(category)}
+                >
+                  {category}
+                </GlassButton>
+              ))}
+            </div>
+          </GlassSurface>
         </div>
       </section>
 
       {/* Chapters Grid */}
-      <section className="py-20 px-4">
+      <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {displayedChapters.map((chapter) => (
@@ -91,103 +94,48 @@ const ExplorePage: React.FC = () => {
       </section>
 
       {/* Learning Path Info */}
-      <section
-        className="py-20 px-4"
-        style={{
-          backgroundColor: `var(--color-surface-secondary)`,
-          opacity: 0.15,
-          borderTop: `2px solid var(--color-surface-secondary)`,
-        }}
-      >
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-serif font-bold mb-8" style={{ color: "var(--color-surface-primary)" }}>
-            How This Works
-          </h2>
-          <div className="space-y-6">
-            <div className="flex gap-4">
-              <div
-                className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: "var(--color-accent)" }}
-              >
-                1
+      <section className="py-16 px-4">
+        <div className="max-w-3xl mx-auto space-y-4 text-white">
+          <h2 className="lg-heading-section mb-6">How this journey works</h2>
+          <div className="space-y-5 text-sm md:text-base">
+            {[
+              {
+                step: "01",
+                title: "Explore the 3D scene",
+                body: "Each chapter opens with an interactive visualization that reacts to your movement and scroll.",
+              },
+              {
+                step: "02",
+                title: "Read the idea clearly",
+                body: "Short, precise explanations grounded in peer-reviewed psychology and neuroscience.",
+              },
+              {
+                step: "03",
+                title: "Reflect in your own words",
+                body: "Prompts help you connect the idea to real moments in your life. Everything stays on your device.",
+              },
+              {
+                step: "04",
+                title: "Follow the citations",
+                body: "When you’re ready, dive into the original papers and books that shaped each concept.",
+              },
+            ].map((item) => (
+              <div key={item.step} className="flex gap-4 items-start">
+                <div className="flex-shrink-0 w-9 h-9 rounded-full border border-white/40 flex items-center justify-center text-[11px] tracking-[0.22em] uppercase">
+                  {item.step}
+                </div>
+                <div>
+                  <h3 className="text-sm md:text-base font-semibold mb-1 tracking-tight">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs md:text-sm text-[rgba(245,245,247,0.86)]">
+                    {item.body}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
-                  Explore the 3D Scene
-                </h3>
-                <p style={{ color: "var(--color-fg-secondary)" }}>
-                  Each chapter features an interactive 3D visualization that reacts to your cursor and scroll. Hover
-                  and interact to discover visual metaphors of the concept.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div
-                className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: "var(--color-accent)" }}
-              >
-                2
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
-                  Read the Content
-                </h3>
-                <p style={{ color: "var(--color-fg-secondary)" }}>
-                  Thoughtfully written explanations grounded in peer-reviewed psychology research. Each explanation
-                  balances accuracy with accessibility.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div
-                className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: "var(--color-accent)" }}
-              >
-                3
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
-                  Reflect & Respond
-                </h3>
-                <p style={{ color: "var(--color-fg-secondary)" }}>
-                  Three reflection prompts help you connect the concept to your own life. Your responses are saved
-                  locally—no tracking, no servers.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div
-                className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white"
-                style={{ backgroundColor: "var(--color-accent)" }}
-              >
-                4
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold mb-2" style={{ color: "var(--color-surface-primary)" }}>
-                  Review Citations
-                </h3>
-                <p style={{ color: "var(--color-fg-secondary)" }}>
-                  All claims are backed by research. Every chapter includes citations and links to source material so
-                  you can dive deeper.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-12 px-4 text-center" style={{ backgroundColor: "var(--color-bg-primary)" }}>
-        <button
-          onClick={() => navigate("/")}
-          className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 inline-block"
-          style={{ backgroundColor: "var(--color-surface-primary)", color: "white" }}
-        >
-          Back to Home
-        </button>
       </section>
     </div>
   );

@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { Chapter } from "../../constants/chapters";
+import GlassSurface from "../ui/GlassSurface";
+import GlassButton from "../ui/GlassButton";
 
 interface ChapterContentProps {
   chapter: Chapter;
@@ -121,13 +123,13 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
   }, [showDeep]);
 
   return (
-    <div className="max-w-3xl mx-auto p-8 md:p-12 prose-custom" style={{ backgroundColor: "var(--color-bg-secondary)" }}>
+    <div className="max-w-3xl mx-auto px-4 py-10 md:py-12 prose-custom">
       {/* Category Badge */}
-      <div className="mb-6">
+      <div className="mb-5">
         <span
-          className="px-4 py-2 rounded-full text-sm font-semibold"
+          className="inline-flex items-center px-4 py-1.5 rounded-full text-[11px] font-semibold tracking-[0.18em] uppercase"
           style={{
-            backgroundColor: `${chapter.color}30`,
+            backgroundColor: `${chapter.color}26`,
             color: chapter.color,
           }}
         >
@@ -136,84 +138,135 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
       </div>
 
       {/* Title (from page, but repeated for context) */}
-      <div className="mb-8">
-        <p className="text-lg italic mb-4" style={{ color: "var(--color-text-secondary)" }}>
+      <div className="mb-7">
+        <p className="text-sm md:text-base italic mb-3 text-[rgba(245,245,247,0.82)]">
           {chapter.teaser}
         </p>
       </div>
 
       {/* Main Content */}
-      <div className="prose prose-lg max-w-none mb-8">
-        <p className="text-lg leading-relaxed mb-6" style={{ color: "var(--color-text)" }}>
+      <GlassSurface
+        variant="panel"
+        depth="2"
+        className="prose-lg max-w-none mb-8 px-5 md:px-6 py-5 md:py-6 text-white"
+      >
+        <p className="text-sm md:text-base leading-relaxed mb-4 text-[rgba(245,245,247,0.9)]">
           {chapter.description}
         </p>
 
         {/* Long Description (broken into paragraphs) */}
         {chapter.longDescription && (
-          <div className="mt-8 space-y-6">
+          <div className="mt-4 space-y-3 text-xs md:text-sm">
             {chapter.longDescription.split("\n\n").map((paragraph, index) => (
-              <p key={index} className="text-base leading-relaxed" style={{ color: "var(--color-text)" }}>
+              <p
+                key={index}
+                className="leading-relaxed text-[rgba(245,245,247,0.9)]"
+              >
                 {paragraph}
               </p>
             ))}
           </div>
         )}
-      </div>
+      </GlassSurface>
 
       {/* Read In Depth CTA - open inline modal to avoid navigation */}
-      <div className="mt-8 flex items-center gap-4">
-        <button onClick={() => setShowDeep(true)} className="btn-accent" aria-label={`Open ${chapter.title} read-in-depth`}>
+      <div className="mt-4 flex items-center gap-3 flex-wrap">
+        <GlassButton
+          variant="primary"
+          accent="blue"
+          onClick={() => setShowDeep(true)}
+          aria-label={`Open ${chapter.title} read-in-depth`}
+        >
           Read in more depth
-        </button>
-        <Link to={`/chapter/${chapter.id}`} className="btn-secondary">
-          Back to chapter overview
-        </Link>
+        </GlassButton>
+        <GlassButton as="button" variant="secondary" accent="cyan">
+          <Link to={`/chapter/${chapter.id}`}>Back to chapter overview</Link>
+        </GlassButton>
       </div>
 
       {/* Inline Deep View Modal (non-redirecting) */}
       {showDeep && (
-        <div className="fixed inset-0 z-60 flex items-start justify-center p-6" aria-hidden={false}>
-          <div className="absolute inset-0 bg-black/50" onClick={() => setShowDeep(false)} />
-          <div ref={modalRef} role="dialog" aria-modal="true" aria-labelledby={`deep-${chapter.id}-title`} className="relative max-w-4xl w-full max-h-[90vh] overflow-auto bg-white rounded-lg p-6 shadow-xl">
-            <div className="flex items-center justify-between mb-4">
-              <h2 id={`deep-${chapter.id}-title`} className="text-2xl font-serif font-bold">{chapter.title} — Read in depth</h2>
-              <button ref={closeButtonRef} onClick={() => setShowDeep(false)} className="px-3 py-1 rounded border">Close</button>
+        <div className="fixed inset-0 z-[1050] flex items-start justify-center p-6">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowDeep(false)} />
+          <GlassSurface
+            ref={modalRef as React.RefObject<HTMLDivElement>}
+            variant="panel"
+            depth="3"
+            as="div"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={`deep-${chapter.id}-title`}
+            className="relative max-w-4xl w-full max-h-[90vh] overflow-auto px-5 md:px-7 py-5 md:py-6 text-white"
+          >
+            <div className="flex items-center justify-between mb-4 gap-3">
+              <h2
+                id={`deep-${chapter.id}-title`}
+                className="text-sm md:text-base font-semibold tracking-tight"
+              >
+                {chapter.title} — read in depth
+              </h2>
+              <GlassButton
+                variant="secondary"
+                accent="blue"
+                className="px-3 py-1 text-xs"
+                ref={closeButtonRef as React.RefObject<HTMLButtonElement>}
+                onClick={() => setShowDeep(false)}
+              >
+                Close
+              </GlassButton>
             </div>
 
-            <section className="space-y-4">
-              <p className="text-sm opacity-80">{chapter.teaser}</p>
+            <section className="space-y-3 text-xs md:text-sm">
+              <p className="opacity-80">{chapter.teaser}</p>
               {chapter.longDescription && (
-                <div className="mt-2 space-y-3">
-                  {chapter.longDescription.split('\n\n').map((p, i) => (
-                    <p key={i} className="text-base leading-relaxed" style={{ color: "var(--color-text)" }}>{p}</p>
+                <div className="mt-1 space-y-2">
+                  {chapter.longDescription.split("\n\n").map((p, i) => (
+                    <p key={i} className="leading-relaxed text-[rgba(245,245,247,0.9)]">
+                      {p}
+                    </p>
                   ))}
                 </div>
               )}
             </section>
 
             {chapter.subtopics && chapter.subtopics.length > 0 && (
-              <section className="mt-6">
-                <h3 className="text-lg font-semibold mb-3">Subtopics</h3>
-                <div className="space-y-3">
+              <section className="mt-5">
+                <h3 className="text-xs md:text-sm font-semibold mb-2">Subtopics</h3>
+                <div className="space-y-2">
                   {chapter.subtopics.map((s) => (
-                    <div key={s.id} ref={(el) => (subtopicRefs.current[s.id] = el)} className="p-3 rounded border">
-                      <div className="flex items-start justify-between gap-4">
+                    <GlassSurface
+                      key={s.id}
+                      ref={(el) => {
+                        subtopicRefs.current[s.id] = el;
+                      }}
+                      variant="card"
+                      depth="1"
+                      className="px-4 py-3 text-xs md:text-sm"
+                    >
+                      <div className="flex items-start justify-between gap-3">
                         <div>
-                          <h4 className="font-medium">{s.title}</h4>
-                          {s.summary && <p className="text-sm opacity-80">{s.summary}</p>}
+                          <h4 className="font-medium mb-0.5">{s.title}</h4>
+                          {s.summary && (
+                            <p className="text-[11px] opacity-80">{s.summary}</p>
+                          )}
                         </div>
-                        <div>
-                          <button onClick={() => toggleSubtopic(s.id)} className="px-2 py-1 rounded border text-sm">{openSubtopics[s.id] ? 'Hide' : 'Open'}</button>
-                        </div>
+                        <GlassButton
+                          variant="secondary"
+                          accent="blue"
+                          className="px-2.5 py-1 text-[11px]"
+                          onClick={() => toggleSubtopic(s.id)}
+                        >
+                          {openSubtopics[s.id] ? "Hide" : "Open"}
+                        </GlassButton>
                       </div>
                       {openSubtopics[s.id] && (
-                        <div className="mt-3 prose-custom">
+                        <div className="mt-2 prose-custom text-xs leading-relaxed text-[rgba(245,245,247,0.9)]">
                           <div dangerouslySetInnerHTML={{ __html: s.svg || "" }} />
-                          <div className="mt-2 leading-relaxed">{s.content}</div>
+                          <div className="mt-1.5">{s.content}</div>
                           {s.examples && s.examples.length > 0 && (
                             <div className="mt-2">
                               <h5 className="font-medium">Examples</h5>
-                              <ul className="list-disc pl-5 mt-2">
+                              <ul className="list-disc pl-5 mt-1 space-y-1">
                                 {s.examples.map((ex, idx) => (
                                   <li key={idx}>{ex}</li>
                                 ))}
@@ -222,55 +275,78 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
                           )}
                         </div>
                       )}
-                    </div>
+                    </GlassSurface>
                   ))}
                 </div>
               </section>
             )}
 
             {/* Further reading rendered as plain citation text (no external redirects) */}
-            <section className="mt-6">
-              <h3 className="text-lg font-semibold mb-2">Further reading & context</h3>
-              <div className="space-y-3">
+            <section className="mt-5">
+              <h3 className="text-xs md:text-sm font-semibold mb-2">
+                Further reading & context
+              </h3>
+              <div className="space-y-2">
                 {chapter.citations.map((c, idx) => (
-                  <div key={idx} className="p-3 rounded flex flex-col" style={{ backgroundColor: '#fafafa', border: `1px solid var(--color-border)` }}>
-                    <p className="font-semibold" style={{ color: "var(--color-primary)" }}>{c.title}</p>
-                    <p className="text-sm" style={{ color: "var(--color-text-secondary)" }}>{c.author} ({c.year})</p>
+                  <GlassSurface
+                    key={idx}
+                    variant="card"
+                    depth="1"
+                    className="px-4 py-3 text-[11px] md:text-xs"
+                  >
+                    <p className="font-semibold text-[rgba(167,139,250,0.96)]">
+                      {c.title}
+                    </p>
+                    <p className="text-[rgba(245,245,247,0.8)]">
+                      {c.author} ({c.year})
+                    </p>
                     {c.doi && (
-                      <div className="flex items-center gap-3 mt-2">
-                        <span className="text-xs opacity-80">DOI: {c.doi}</span>
-                        <button onClick={() => copyToClipboard(c.doi!, idx)} className="text-xs px-2 py-1 border rounded">Copy DOI</button>
-                        {copiedIndex === idx && <span className="text-xs text-green-600">Copied</span>}
+                      <div className="flex items-center gap-3 mt-1.5">
+                        <span className="opacity-80">DOI: {c.doi}</span>
+                        <GlassButton
+                          variant="secondary"
+                          accent="blue"
+                          className="px-2 py-0.5 text-[10px]"
+                          onClick={() => copyToClipboard(c.doi!, idx)}
+                        >
+                          Copy DOI
+                        </GlassButton>
+                        {copiedIndex === idx && (
+                          <span className="text-[10px] text-[rgba(90,240,217,0.9)]">
+                            Copied
+                          </span>
+                        )}
                       </div>
                     )}
-                    {c.url && <p className="text-xs opacity-80 mt-2">URL: {c.url}</p>}
-                  </div>
+                    {c.url && (
+                      <p className="opacity-80 mt-1.5 break-all">URL: {c.url}</p>
+                    )}
+                  </GlassSurface>
                 ))}
               </div>
             </section>
-          </div>
+          </GlassSurface>
         </div>
       )}
 
       {/* Key Takeaways */}
       {chapter.longDescription && chapter.longDescription.includes("-") && (
-        <div
-          className="p-8 rounded-lg mb-12"
-          style={{
-            backgroundColor: `${chapter.color}15`,
-            borderLeft: `4px solid ${chapter.color}`,
-          }}
+        <GlassSurface
+          variant="card"
+          depth="1"
+          className="p-6 md:p-7 mb-10 text-white"
         >
-          <h3 className="text-2xl font-serif font-bold mb-6" style={{ color: "var(--color-primary)" }}>
-            Key Concepts
-          </h3>
+          <h3 className="text-lg md:text-xl font-semibold mb-4">Key concepts</h3>
           <ul className="space-y-3">
             {chapter.longDescription
               .split("-")
               .filter((item) => item.trim().length > 10)
               .slice(0, 5)
               .map((item, index) => (
-                <li key={index} className="flex gap-3" style={{ color: "var(--color-text)" }}>
+                <li
+                  key={index}
+                  className="flex gap-3 text-xs md:text-sm text-[rgba(245,245,247,0.9)]"
+                >
                   <span
                     className="flex-shrink-0 w-2 h-2 rounded-full mt-2"
                     style={{ backgroundColor: chapter.color }}
@@ -279,7 +355,7 @@ export const ChapterContent: React.FC<ChapterContentProps> = ({ chapter }) => {
                 </li>
               ))}
           </ul>
-        </div>
+        </GlassSurface>
       )}
     </div>
   );

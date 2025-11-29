@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Chapter } from "../../constants/chapters";
+import GlassSurface from "../ui/GlassSurface";
 
 interface ChapterCardProps {
   chapter: Chapter;
@@ -8,13 +9,13 @@ interface ChapterCardProps {
 
 export const ChapterCard: React.FC<ChapterCardProps> = ({ chapter }) => {
   return (
-    <Link to={`/chapter/${chapter.id}`} className="group block">
-      <div
-        className="p-8 rounded-lg shadow-lg cursor-pointer hover:shadow-xl transition-all group-hover:scale-105"
+    <Link to={`/chapter/${chapter.id}`} className="group block will-change-transform">
+      <GlassSurface
+        variant="card"
+        depth="1"
+        className="p-6 md:p-7 cursor-pointer transition-transform group-hover:-translate-y-[2px]"
         style={{
-          backgroundColor: "var(--color-bg-secondary)",
-          borderLeft: `4px solid ${chapter.color}`,
-          border: `1px solid var(--color-border)`,
+          borderLeft: `3px solid ${chapter.color}`,
         }}
       >
       {/* Badge */}
@@ -68,7 +69,7 @@ export const ChapterCard: React.FC<ChapterCardProps> = ({ chapter }) => {
           )}
         </div>
       </div>
-    </div>
+      </GlassSurface>
   </Link>
   );
 };

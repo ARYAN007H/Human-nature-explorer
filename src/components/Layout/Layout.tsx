@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDarkMode } from "../../hooks/useDarkMode";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import GlassSurface from "../ui/GlassSurface";
+import GlassButton from "../ui/GlassButton";
+
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -24,80 +26,83 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const isHome = location.pathname === "/";
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ backgroundColor: "var(--color-bg-primary)" }}>
+    <div
+      className="min-h-screen flex flex-col"
+      style={{
+        background:
+          "radial-gradient(circle at 0% -10%, rgba(90,240,217,0.18) 0%, transparent 55%), radial-gradient(circle at 100% 110%, rgba(77,169,255,0.22) 0%, transparent 55%), #000000",
+      }}
+    >
       {/* Skip to content for keyboard users */}
       <a href="#main-content" className="skip-link sr-only focus:not-sr-only" style={{position: 'absolute', left: 8, top: 8, zIndex: 60}}>Skip to content</a>
       {/* Header/Navigation */}
-      <nav
-        className={`sticky top-0 z-50 px-6 py-3 transition-all ${scrolled ? "shadow-lg" : ""}`}
-        style={{
-          backgroundColor: isHome ? (scrolled ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.08)") : "rgba(28,28,30,0.7)",
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          borderBottom: isHome || !scrolled ? "none" : `1px solid rgba(${isHome ? "0,0,0" : "255,255,255"},0.15)`,
-          borderRadius: scrolled ? "0 0 20px 20px" : "0",
-          color: isHome ? "#1A1A1C" : "white",
-        }}
-      >
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
+      <header className="sticky top-0 z-[var(--z-sticky)] px-4 pt-4 pb-3 pointer-events-none">
+        <GlassSurface
+          as="nav"
+          variant="nav"
+          depth="3"
+          className={`pointer-events-auto max-w-6xl mx-auto flex items-center justify-between px-4 md:px-6 py-2.5 md:py-3 transition-transform duration-300 ${
+            scrolled ? "translate-y-0" : "translate-y-[2px]"
+          }`}
+          aria-label="Primary"
+        >
           <div className="flex items-center gap-4">
-            <button
+            <GlassButton
+              variant="ghost"
+              accent="cyan"
+              className="px-3 py-1.5 rounded-full text-sm tracking-tight"
               onClick={() => navigate("/")}
-              className="text-2xl font-serif font-bold transition-all hover:opacity-80"
-              style={{ color: "inherit" }}
               aria-label="Home"
             >
               HNE
-            </button>
+            </GlassButton>
 
             {/* Dark mode toggle */}
-            <button
+            <GlassButton
+              variant="icon"
+              accent="purple"
               onClick={() => toggleDark()}
               aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
               title={isDark ? "Light mode" : "Dark mode"}
-              className="ml-2 p-2 rounded-md transition-colors hover:bg-white/10 active:bg-white/20"
-              style={{
-                color: isHome ? "#1A1A1C" : "white",
-              }}
             >
               {isDark ? (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" fill="currentColor"/></svg>
               ) : (
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 4V2M12 22v-2M4 12H2M22 12h-2M5 5L3.5 3.5M20.5 20.5L19 19M5 19l-1.5 1.5M20.5 3.5L19 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               )}
-            </button>
+            </GlassButton>
 
-            <div className="hidden md:flex items-center gap-3 ml-3">
-              <button
+            <div className="hidden md:flex items-center gap-2 ml-3">
+              <GlassButton
+                variant="ghost"
+                accent="blue"
                 onMouseEnter={() => void import("../../pages/ExplorePage")}
                 onFocus={() => void import("../../pages/ExplorePage")}
                 onClick={() => navigate("/explore")}
-                className="px-3 py-2 rounded-md font-medium transition-all hover:opacity-90"
-                style={{ backgroundColor: "transparent", color: isHome ? "#1A1A1C" : "white" }}
                 aria-label="Guided Exploration"
               >
                 Explore
-              </button>
-              <button
+              </GlassButton>
+              <GlassButton
+                variant="ghost"
+                accent="blue"
                 onMouseEnter={() => void import("../../pages/WanderPage")}
                 onFocus={() => void import("../../pages/WanderPage")}
                 onClick={() => navigate("/wander")}
-                className="px-3 py-2 rounded-md font-medium transition-all hover:opacity-90"
-                style={{ backgroundColor: "transparent", color: isHome ? "#1A1A1C" : "white" }}
                 aria-label="Wander"
               >
                 Wander
-              </button>
-              <button
+              </GlassButton>
+              <GlassButton
+                variant="ghost"
+                accent="blue"
                 onMouseEnter={() => void import("../../pages/LibraryPage")}
                 onFocus={() => void import("../../pages/LibraryPage")}
                 onClick={() => navigate("/library")}
-                className="px-3 py-2 rounded-md font-medium transition-all hover:opacity-90"
-                style={{ backgroundColor: "transparent", color: isHome ? "#1A1A1C" : "white" }}
                 aria-label="Library"
               >
                 Library
-              </button>
+              </GlassButton>
             </div>
           </div>
 
@@ -106,28 +111,24 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="hidden md:block">
               {!isHome && (
                 <div className="flex gap-4">
-                  <button
+                  <GlassButton
                     onClick={() => navigate("/explore")}
-                    className="px-4 py-2 rounded-lg font-semibold transition-all hover:opacity-80"
-                    style={{ backgroundColor: "rgba(255, 255, 255, 0.08)", color: "white" }}
                     aria-label="Go to guided exploration"
                   >
                     Explore
-                  </button>
-                  <button
+                  </GlassButton>
+                  <GlassButton
                     onClick={() => navigate("/wander")}
-                    className="px-4 py-2 rounded-lg font-semibold transition-all hover:opacity-80"
-                    style={{ backgroundColor: "rgba(255, 255, 255, 0.08)", color: "white" }}
                     aria-label="Go to free browsing"
                   >
                     Wander
-                  </button>
+                  </GlassButton>
                 </div>
               )}
             </div>
 
             <button
-              className="md:hidden p-2 rounded-md"
+              className="md:hidden p-2 rounded-full bg-transparent text-white"
               onClick={() => setMenuOpen((s) => !s)}
               aria-label="Toggle navigation menu"
               aria-expanded={menuOpen}
@@ -137,37 +138,71 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               </svg>
             </button>
           </div>
-        </div>
+        </GlassSurface>
 
         {/* mobile menu */}
         {menuOpen && (
-            <div className="md:hidden mt-2 px-2 pb-4">
-            <div className="flex flex-col gap-2">
-              <button onMouseEnter={() => void import('../../pages/ExplorePage')} onClick={() => { navigate('/explore'); setMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-md">Explore</button>
-              <button onMouseEnter={() => void import('../../pages/WanderPage')} onClick={() => { navigate('/wander'); setMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-md">Wander</button>
-              <button onMouseEnter={() => void import('../../pages/LibraryPage')} onClick={() => { navigate('/library'); setMenuOpen(false); }} className="w-full text-left px-3 py-2 rounded-md">Library</button>
-            </div>
+          <div className="md:hidden mt-3">
+            <GlassSurface
+              variant="panel"
+              depth="2"
+              className="flex flex-col gap-1 py-2 px-2 text-sm"
+            >
+              <button
+                onMouseEnter={() => void import("../../pages/ExplorePage")}
+                onClick={() => {
+                  navigate("/explore");
+                  setMenuOpen(false);
+                }}
+                className="w-full text-left rounded-full px-3 py-2 hover:bg-white/8 transition-colors"
+              >
+                Explore
+              </button>
+              <button
+                onMouseEnter={() => void import("../../pages/WanderPage")}
+                onClick={() => {
+                  navigate("/wander");
+                  setMenuOpen(false);
+                }}
+                className="w-full text-left rounded-full px-3 py-2 hover:bg-white/8 transition-colors"
+              >
+                Wander
+              </button>
+              <button
+                onMouseEnter={() => void import("../../pages/LibraryPage")}
+                onClick={() => {
+                  navigate("/library");
+                  setMenuOpen(false);
+                }}
+                className="w-full text-left rounded-full px-3 py-2 hover:bg-white/8 transition-colors"
+              >
+                Library
+              </button>
+            </GlassSurface>
           </div>
         )}
-      </nav>
+      </header>
 
-  {/* Main Content */}
-  <main id="main-content" className="flex-1 w-full">{children}</main>
+      {/* Main Content */}
+      <main id="main-content" className="flex-1 w-full">
+        {children}
+      </main>
 
       {/* Footer */}
-      <footer
-        className="mt-auto pt-16 px-4 py-12"
-        style={{
-          backgroundColor: "var(--color-surface-primary)",
-          color: "white",
-        }}
-      >
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-12 mb-12">
+      <footer className="mt-auto pt-16 px-4 pb-10 text-[rgba(245,245,247,0.76)]">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <GlassSurface
+            as="div"
+            variant="panel"
+            depth="1"
+            className="grid gap-10 md:grid-cols-3 px-6 md:px-8 py-8"
+          >
             {/* About */}
             <div>
-              <h4 className="text-lg font-serif font-bold mb-4">About</h4>
-              <p className="opacity-80 leading-relaxed text-sm">
+              <h4 className="text-sm font-semibold tracking-[0.04em] uppercase mb-3 text-[rgba(245,245,247,0.86)]">
+                About
+              </h4>
+              <p className="opacity-80 leading-relaxed text-xs md:text-sm">
                 Human Nature Explorer is a resource for understanding ourselves and each other through psychology,
                 neuroscience, and human behavior.
               </p>
@@ -175,8 +210,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Links */}
             <div>
-              <h4 className="text-lg font-serif font-bold mb-4">Explore</h4>
-              <ul className="space-y-2 text-sm">
+              <h4 className="text-sm font-semibold tracking-[0.04em] uppercase mb-3 text-[rgba(245,245,247,0.86)]">
+                Explore
+              </h4>
+              <ul className="space-y-2 text-xs md:text-sm">
                 <li>
                   <button
                     onClick={() => navigate("/explore")}
@@ -198,30 +235,25 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Privacy */}
             <div>
-              <h4 className="text-lg font-serif font-bold mb-4">Privacy</h4>
-              <p className="opacity-80 text-sm leading-relaxed">
+              <h4 className="text-sm font-semibold tracking-[0.04em] uppercase mb-3 text-[rgba(245,245,247,0.86)]">
+                Privacy
+              </h4>
+              <p className="opacity-80 text-xs md:text-sm leading-relaxed">
                 All your data stays on your device. No tracking. No accounts. No servers. Your reflections are yours
                 alone.
               </p>
             </div>
-          </div>
+          </GlassSurface>
 
-          {/* Divider */}
-          <div
-            style={{
-              borderTop: `1px solid rgba(255, 255, 255, 0.1)`,
-              paddingTop: "1.5rem",
-            }}
-          >
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm opacity-70">
-              <p>© 2025 Human Nature Explorer. Made with care for curious minds.</p>
-              <p>
-                Psychology research grounded in peer-reviewed science.{" "}
-                <a href="#" className="underline hover:opacity-100">
-                  View citations.
-                </a>
-              </p>
-            </div>
+          {/* Divider & legal row */}
+          <div className="border-t border-[rgba(255,255,255,0.08)] pt-4 text-[11px] md:text-xs opacity-70 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+            <p>© 2025 Human Nature Explorer. Made with care for curious minds.</p>
+            <p>
+              Psychology research grounded in peer-reviewed science.{" "}
+              <a href="#" className="underline hover:opacity-100">
+                View citations.
+              </a>
+            </p>
           </div>
         </div>
       </footer>
@@ -230,4 +262,3 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 };
 
 export default Layout;
-<SpeedInsights/>

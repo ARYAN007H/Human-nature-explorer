@@ -2,6 +2,8 @@ import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import ChapterCard from "../components/Chapters/ChapterCard";
 import { chapters } from "../constants/chapters";
+import GlassSurface from "../components/ui/GlassSurface";
+import GlassButton from "../components/ui/GlassButton";
 
 const WanderPage: React.FC = () => {
   const navigate = useNavigate();
@@ -33,80 +35,77 @@ const WanderPage: React.FC = () => {
 
   return (
     <div className="w-full">
-      {/* Header */}
-      <section
-        className="py-20 px-4"
-        style={{
-          background: "linear-gradient(135deg, var(--color-accent) 0%, var(--color-primary) 100%)",
-        }}
-      >
-        <div className="max-w-6xl mx-auto text-center">
-          <h1 className="text-5xl md:text-6xl font-serif font-bold text-neutral-light mb-6">
-            Wander Freely
-          </h1>
-          <p className="text-lg md:text-xl text-neutral-light opacity-90 max-w-2xl mx-auto">
-            No guided structure. No suggested order. Browse all chapters and choose your own path through human
-            psychology.
-          </p>
-        </div>
-      </section>
+      {/* Header + Control Bar */}
+      <section className="py-16 px-4">
+        <div className="max-w-6xl mx-auto space-y-6">
+          <GlassSurface
+            variant="hero"
+            depth="3"
+            className="px-6 md:px-10 py-10 md:py-12 text-white"
+          >
+            <p className="text-xs uppercase tracking-[0.32em] mb-3 opacity-70">
+              Mode · Wander
+            </p>
+            <h1 className="lg-heading-section mb-3">Choose your own path</h1>
+            <p className="text-sm md:text-base max-w-2xl text-[rgba(245,245,247,0.86)]">
+              Browse every chapter without order or expectation. Let curiosity, not a syllabus, decide
+              where you go next.
+            </p>
+          </GlassSurface>
 
-      {/* Search & Sort */}
-      <section className="py-12 px-4 bg-neutral-light border-b" style={{ borderColor: "var(--color-border)" }}>
-        <div className="max-w-6xl mx-auto">
-          {/* Search */}
-          <div className="mb-8">
-            <label className="block text-sm font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
-              Search Chapters
-            </label>
-            <input
-              type="text"
-              placeholder="Search by title, topic, or keyword..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg border-2 transition-all focus:outline-none"
-              style={{
-                borderColor: "var(--color-accent)",
-              }}
-              aria-label="Search chapters by title or keyword"
-            />
-          </div>
+          <GlassSurface
+            variant="panel"
+            depth="2"
+            className="px-4 md:px-6 py-4 md:py-5 space-y-4 text-xs md:text-sm text-white"
+          >
+            <div className="flex flex-col md:flex-row gap-4 md:gap-6 md:items-center">
+              <div className="flex-1">
+                <label className="block text-[10px] uppercase tracking-[0.26em] mb-2 opacity-70">
+                  Search
+                </label>
+                <input
+                  type="text"
+                  placeholder="Search by title, topic, or keyword..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full px-4 py-2 rounded-full bg-black/40 border border-white/16 text-xs md:text-sm text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[rgba(77,169,255,0.7)]"
+                  aria-label="Search chapters by title or keyword"
+                />
+              </div>
 
-          {/* Sort */}
-          <div>
-            <label className="block text-sm font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
-              Sort By
-            </label>
-            <div className="flex flex-wrap gap-3">
-              {[
-                { value: "order" as const, label: "Default Order" },
-                { value: "alphabetical" as const, label: "A-Z" },
-                { value: "category" as const, label: "Category" },
-              ].map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setSortBy(option.value)}
-                  className="px-4 py-2 rounded-lg font-medium transition-all"
-                  style={{
-                    backgroundColor: sortBy === option.value ? "var(--color-accent)" : "white",
-                    color: sortBy === option.value ? "white" : "var(--color-primary)",
-                    border: `2px solid var(--color-accent)`,
-                  }}
-                >
-                  {option.label}
-                </button>
-              ))}
+              <div className="md:w-56">
+                <label className="block text-[10px] uppercase tracking-[0.26em] mb-2 opacity-70">
+                  Sort
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    { value: "order" as const, label: "Default" },
+                    { value: "alphabetical" as const, label: "A–Z" },
+                    { value: "category" as const, label: "Category" },
+                  ].map((option) => (
+                    <GlassButton
+                      key={option.value}
+                      variant={sortBy === option.value ? "primary" : "secondary"}
+                      accent="cyan"
+                      className="px-3 py-1 text-[11px]"
+                      onClick={() => setSortBy(option.value)}
+                    >
+                      {option.label}
+                    </GlassButton>
+                  ))}
+                </div>
+              </div>
             </div>
-          </div>
+          </GlassSurface>
         </div>
       </section>
 
       {/* Chapters Grid */}
-      <section className="py-20 px-4">
+      <section className="py-12 px-4">
         <div className="max-w-6xl mx-auto">
           {filteredChapters.length > 0 ? (
             <>
-              <p className="mb-8 text-center" style={{ color: "var(--color-text-secondary)" }}>
+              <p className="mb-8 text-center text-xs md:text-sm text-[rgba(245,245,247,0.76)]">
                 Showing {filteredChapters.length} of {chapters.length} chapters
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -122,87 +121,62 @@ const WanderPage: React.FC = () => {
               </div>
             </>
           ) : (
-            <div className="text-center py-12">
-              <p className="text-2xl font-serif mb-4" style={{ color: "var(--color-primary)" }}>
+            <div className="text-center py-12 text-white">
+              <p className="text-2xl font-serif mb-4">
                 No chapters found
               </p>
-              <p style={{ color: "var(--color-text-secondary)" }}>
+              <p className="text-sm text-[rgba(245,245,247,0.76)]">
                 Try a different search term or browse all chapters by clearing the search.
               </p>
-              <button
-                onClick={() => setSearchQuery("")}
-                className="mt-6 px-6 py-2 rounded-lg font-semibold transition-all"
-                style={{ backgroundColor: "var(--color-accent)", color: "white" }}
-              >
-                Clear Search
-              </button>
+              <div className="mt-6">
+                <GlassButton variant="primary" accent="blue" onClick={() => setSearchQuery("")}>
+                  Clear search
+                </GlassButton>
+              </div>
             </div>
           )}
         </div>
       </section>
 
       {/* Browse Tips */}
-      <section
-        className="py-20 px-4"
-        style={{
-          backgroundColor: "var(--color-accent-light)",
-          borderTop: `2px solid var(--color-primary)`,
-        }}
-      >
+      <section className="py-16 px-4">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-3xl font-serif font-bold mb-8" style={{ color: "var(--color-primary)" }}>
-            Tip: Start With Your Curiosity
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
-                💭 Wondering About Yourself?
-              </h3>
-              <p style={{ color: "var(--color-text-secondary)" }}>
-                Try <strong>Attachment & Relationships</strong> to understand your relationship patterns, or{" "}
-                <strong>Memory & Learning</strong> to understand how you absorb information.
-              </p>
+          <GlassSurface variant="panel" depth="2" className="px-6 md:px-7 py-7 text-white">
+            <h2 className="lg-heading-section mb-6 text-white">
+              Not sure where to begin?
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6 text-xs md:text-sm text-[rgba(245,245,247,0.9)]">
+              <div>
+                <h3 className="font-semibold mb-2">💭 Wondering about yourself?</h3>
+                <p>
+                  Try <strong>Attachment & Relationships</strong> to map your patterns, or{" "}
+                  <strong>Memory & Learning</strong> to see how you absorb information.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">🎯 Understanding others?</h3>
+                <p>
+                  Visit <strong>Empathy & Mirror Neurons</strong> or{" "}
+                  <strong>Social Roles</strong> to see why behavior shifts between contexts.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">⚙️ Decision-making?</h3>
+                <p>
+                  Read <strong>Cognitive Biases</strong> or{" "}
+                  <strong>Motivation & Goals</strong> to align choices with your values.
+                </p>
+              </div>
+              <div>
+                <h3 className="font-semibold mb-2">😔 Working through challenges?</h3>
+                <p>
+                  Explore <strong>Fear & Threat Response</strong> or{" "}
+                  <strong>Emotions & Feelings</strong> to better understand your inner world.
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
-                🎯 Understanding Others?
-              </h3>
-              <p style={{ color: "var(--color-text-secondary)" }}>
-                Explore <strong>Empathy & Mirror Neurons</strong> to understand social connection, or{" "}
-                <strong>Social Roles</strong> to see why people behave differently in different contexts.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
-                ⚙️ Decision-Making?
-              </h3>
-              <p style={{ color: "var(--color-text-secondary)" }}>
-                Read <strong>Cognitive Biases</strong> to see how your thinking can fool you, or{" "}
-                <strong>Motivation & Goals</strong> to align your actions with your values.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold mb-3" style={{ color: "var(--color-primary)" }}>
-                😔 Working Through Challenges?
-              </h3>
-              <p style={{ color: "var(--color-text-secondary)" }}>
-                Consider <strong>Fear & Threat Response</strong> if anxiety is present, or{" "}
-                <strong>Emotions & Feelings</strong> to better understand your inner world.
-              </p>
-            </div>
-          </div>
+          </GlassSurface>
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-12 px-4 text-center" style={{ backgroundColor: "var(--color-bg-secondary)" }}>
-        <button
-          onClick={() => navigate("/")}
-          className="px-8 py-3 rounded-lg font-semibold transition-all hover:scale-105 inline-block"
-          style={{ backgroundColor: "var(--color-secondary)", color: "var(--color-text)" }}
-        >
-          Back to Home
-        </button>
       </section>
     </div>
   );

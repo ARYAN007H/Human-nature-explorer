@@ -7,13 +7,13 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#2D3E50",
-        secondary: "#E8B4B8",
-        accent: "#F4A261",
-        neutral: {
-          light: "#F5F2ED",
-          dark: "#1A1410",
-        },
+        baseWhite: "#FFFFFF",
+        baseBlack: "#0B0B0B",
+        glassIce: "rgba(255, 255, 255, 0.12)",
+        neonBlue: "#4DA9FF",
+        neonCyan: "#5AF0D9",
+        neonPurple: "#A78BFA",
+        neonPink: "#FF357F",
       },
       fontFamily: {
         serif: ["Playfair Display", "serif"],
